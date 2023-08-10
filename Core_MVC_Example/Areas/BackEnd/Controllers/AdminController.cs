@@ -13,13 +13,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
         public AdminController(Basic basic) : base(basic) { }
 
 
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            context.Result = !CheckLoginState() ? new RedirectToActionResult("Index", "Login", null) : null;
-            GetMenu();
-        }
-
-
         public ActionResult Index()
         {
             string strSQL = @$"SELECT a.AdminNum, g.GroupName, a.AdminAcc, a.AdminName, a.AdminPublish

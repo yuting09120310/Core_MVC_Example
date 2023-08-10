@@ -4,16 +4,20 @@ using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
-    public class LoginController : GenericController {
+    [Area("BackEnd")]
+    public class LoginController : Controller 
+    {
 
+        public Basic _basic;
 
-		public LoginController(Basic basic) : base(basic) { }
+        public LoginController(Basic basic)
+        {
+            _basic = basic;
+        }
 
-
-		// 登入頁面
-		public IActionResult Index() {
+        // 登入頁面
+        public IActionResult Index() {
             ViewBag.ErrorMessage = TempData["ErrorMessage"] as string;
-
             return View();
         }
 

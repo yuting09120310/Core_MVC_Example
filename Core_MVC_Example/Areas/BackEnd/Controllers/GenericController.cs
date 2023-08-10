@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using OBizCommonClass;
 using System.Data;
 
@@ -14,6 +15,13 @@ namespace Core_MVC_Example.BackEnd.Controllers
         public GenericController(Basic basic)
         {
             _basic = basic;
+        }
+
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            context.Result = CheckLoginState() ? null : new RedirectToActionResult("Index", "Login", null);
+            GetMenu();
         }
 
 
