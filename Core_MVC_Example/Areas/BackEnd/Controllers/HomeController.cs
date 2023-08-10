@@ -15,7 +15,6 @@ namespace Core_MVC_Example.Controllers
 
         public IActionResult Index()
         {
-            GetMenu();
             return View();
         }
 
