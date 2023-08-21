@@ -46,22 +46,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Create()
         {
-			_basic.db_Connection();
-
-			#region 取得群組下拉選單
-			string strSQL = "SELECT GroupNum,GroupName FROM admingroup WHERE GroupPublish = 1";
-			DataTable dt = _basic.getDataTable(strSQL);
-
-			List<SelectListItem> adminGroup = new List<SelectListItem>();
-			foreach (DataRow item in dt.Rows)
-			{
-				adminGroup.Add(new SelectListItem { Text = item.ItemArray[1].ToString(), Value = item.ItemArray[0].ToString() });
-			}
-
-            ViewBag.adminGroup = adminGroup;
-			#endregion
-
-			_basic.db_Close();
+            GetGroup();
 
 			return View();
         }
@@ -92,24 +77,12 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Edit(int id)
         {
-			_basic.db_Connection();
+            GetGroup();
 
-			#region 取得群組下拉選單
-			string strSQL = "SELECT GroupNum,GroupName FROM admingroup WHERE GroupPublish = 1";
-			_basic.db_Connection();
+            _basic.db_Connection();
+
+            string strSQL = $"SELECT TOP 1 *  FROM Admin WHERE AdminNum = {id}";
 			DataTable dt = _basic.getDataTable(strSQL);
-
-			List<SelectListItem> adminGroup = new List<SelectListItem>();
-			foreach (DataRow item in dt.Rows)
-			{
-				adminGroup.Add(new SelectListItem { Text = item.ItemArray[1].ToString(), Value = item.ItemArray[0].ToString() });
-			}
-
-			ViewBag.adminGroup = adminGroup;
-			#endregion
-
-			strSQL = $"SELECT TOP 1 *  FROM Admin WHERE AdminNum = {id}";
-			dt = _basic.getDataTable(strSQL);
 
 			AdminEditViewModel editViewModel = new AdminEditViewModel()
             {
@@ -158,5 +131,21 @@ namespace Core_MVC_Example.BackEnd.Controllers
             return Json("刪除完成");
         }
 
+
+        public void GetGroup()
+        {
+            string strSQL = "SELECT GroupNum,GroupName FROM admingroup WHERE GroupPublish = 1";
+            _basic.db_Connection();
+            DataTable dt = _basic.getDataTable(strSQL);
+            _basic.db_Close();
+
+            List<SelectListItem> adminGroup = new List<SelectListItem>();
+            foreach (DataRow item in dt.Rows)
+            {
+                adminGroup.Add(new SelectListItem { Text = item.ItemArray[1].ToString(), Value = item.ItemArray[0].ToString() });
+            }
+
+            ViewBag.adminGroup = adminGroup;
+        }
     }
 }
