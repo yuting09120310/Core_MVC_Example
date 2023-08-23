@@ -175,10 +175,14 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Delete(int id)
         {
-			string strSQL = $"DELETE FROM Admin WHERE AdminNum = {id}";
-
             _basic.db_Connection();
+
+            string strSQL = $"DELETE FROM AdminGroup WHERE GroupNum = {id}";
             _basic.sqlExecute(strSQL);
+
+            strSQL = $"DELETE FROM AdminRole WHERE GroupNum = {id}";
+            _basic.sqlExecute(strSQL);
+
             _basic.db_Close();
 
             return Json("刪除完成");

@@ -1,0 +1,122 @@
+﻿@model Core_MVC_Example.BackEnd.ViewModel.News.NewsEditViewModel
+
+@{
+	ViewData["Title"] = "編輯最新消息";
+}
+
+<!-- Hero -->
+<div class="bg-body-light">
+	<div class="content content-full">
+		<div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
+			<div class="flex-grow-1">
+				<h1 class="h3 fw-bold mb-1">
+					最新消息管理
+				</h1>
+			</div>
+			<nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
+				<ol class="breadcrumb breadcrumb-alt">
+					<li class="breadcrumb-item">
+						<span class="link-fx">最新消息管理</span>
+					</li>
+					<li class="breadcrumb-item" aria-current="page">
+						最新消息編輯
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+<!-- END Hero -->
+<!-- Page Content -->
+<div class="content">
+	<!-- Dynamic Table Full -->
+	<div class="block block-rounded">
+		<div class="block-header block-header-default">
+			<h3 class="block-title">最新消息編輯</h3>
+		</div>
+		<div class="block-content block-content-full">
+			<form class="row g-3 needs-validation" novalidate="" asp-action="Edit" asp-controller="News" enctype="multipart/form-data">
+
+				<input type="hidden" asp-for="NewsNum"/>
+
+				<div class="col-md-12">
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsClassNum)</label>
+					@Html.DropDownListFor(model => model.NewsClassNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsTitle)</label>
+					<input asp-for="NewsTitle" class="form-control" type="text" />
+					<span asp-validation-for="NewsTitle" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsImg)</label>
+					<input asp-for="NewsImg" class="form-control" type="file" />
+					<span asp-validation-for="NewsImg" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsDescription)</label>
+					<input asp-for="NewsDescription" class="form-control" type="text" />
+					<span asp-validation-for="NewsDescription" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsContent)</label>
+					<p><textarea name="NewsContent"></textarea></p>
+					<span asp-validation-for="NewsContent" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.Sort)</label>
+					<input asp-for="Sort" class="form-control" type="number" />
+					<span asp-validation-for="Sort" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsPutTime)</label>
+					<input asp-for="NewsPutTime" class="form-control" type="date" />
+					<span asp-validation-for="NewsPutTime" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsOffTime)</label>
+					<input asp-for="NewsOffTime" class="form-control" type="date" />
+					<span asp-validation-for="NewsOffTime" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-md-12">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsPublish)</label>
+					<select class="form-select" id="IsEnabled" required="" asp-for="NewsPublish">
+						<option value="0">不啟用</option>
+						<option value="1">啟用</option>
+					</select>
+					<span asp-validation-for="NewsPublish" class="text-danger"></span>
+				</div>
+
+
+				<div class="col-mt-12">
+					<button class="btn btn-primary" onclick="checkPassword();" type="submit">送出</button>
+					<a asp-action="Index" class="btn btn-primary">返回列表</a>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
+
