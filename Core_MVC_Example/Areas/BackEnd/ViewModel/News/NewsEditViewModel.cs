@@ -29,7 +29,7 @@ namespace Core_MVC_Example.BackEnd.ViewModel.News
 		public string NewsDescription { get; set; }
 
 
-		[Required(ErrorMessage = "請輸入內容")]
+		[Required(ErrorMessage = "請輸入內容")]	
 		[Display(Name = "內容")]
 		public string NewsContent { get; set; }
 

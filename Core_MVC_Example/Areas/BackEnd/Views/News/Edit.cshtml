@@ -40,7 +40,7 @@
 				<input type="hidden" asp-for="NewsNum"/>
 
 				<div class="col-md-12">
-					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsClassNum)</label>
+			FileName		<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsClassNum)</label>
 					@Html.DropDownListFor(model => model.NewsClassNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
 				</div>
 
@@ -68,7 +68,7 @@
 
 				<div class="col-md-12">
 					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsContent)</label>
-					<p><textarea name="NewsContent"></textarea></p>
+					<p><textarea asp-for="NewsContent" class="form-control"></textarea></p>
 					<span asp-validation-for="NewsContent" class="text-danger"></span>
 				</div>
 

@@ -17,7 +17,11 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         // 登入頁面
         public IActionResult Index() {
-            ViewBag.ErrorMessage = TempData["ErrorMessage"] as string;
+
+            var msg = this.HttpContext.Items["message"] != null ? this.HttpContext.Items["message"].ToString() : "";
+
+			ViewBag.ErrorMessage = msg;
+            
             return View();
         }
 

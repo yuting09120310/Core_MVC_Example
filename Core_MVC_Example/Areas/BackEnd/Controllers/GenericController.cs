@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core_MVC_Example.Areas.BackEnd.Filter;
+using Core_MVC_Example.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using OBizCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
-    [Area("BackEnd")]
+	[Auth]
+	[Area("BackEnd")]
     public class GenericController : Controller
     {
 
         public Basic _basic;
 
 
-        public GenericController(Basic basic)
+        public GenericController(Basic basic, CoreMvcExampleContext context)
         {
             _basic = basic;
         }
@@ -20,7 +23,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            context.Result = CheckLoginState() ? null : new RedirectToActionResult("Index", "Login", null);
             GetMenu();
         }
 
@@ -54,22 +56,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
             ViewBag.AdminName = HttpContext.Session.GetString("AdminName");
             ViewBag.AdminNum = HttpContext.Session.GetString("AdminNum");
-        }
-
-
-        public bool CheckLoginState()
-        {
-            string GroupNum = HttpContext.Session.GetString("GroupNum");
-            string AdminName = HttpContext.Session.GetString("AdminName");
-            string AdminNum = HttpContext.Session.GetString("AdminNum");
-
-            if(string.IsNullOrEmpty(GroupNum) || string.IsNullOrEmpty(AdminName) || string.IsNullOrEmpty(AdminNum))
-            {
-                TempData["ErrorMessage"] = "尚未登入或登入逾期，請重新登入。";
-                return false;
-            }
-            
-            return true;
         }
     }
 }

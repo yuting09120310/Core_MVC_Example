@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core_MVC_Example.Models;
+using Microsoft.AspNetCore.Mvc;
 using OBizCommonClass;
 using System.Data;
 
@@ -7,7 +8,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
     public class LogoutController : GenericController {
 
-		public LogoutController(Basic basic) : base(basic) { }
+		public LogoutController(Basic basic, CoreMvcExampleContext context) : base(basic, context) { }
 
 		// 登入頁面
 		public IActionResult Index() {

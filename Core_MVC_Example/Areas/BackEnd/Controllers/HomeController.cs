@@ -9,7 +9,7 @@ namespace Core_MVC_Example.Controllers
     public class HomeController : GenericController
     {
 
-        public HomeController(Basic basic) : base(basic) { }
+        public HomeController(Basic basic, CoreMvcExampleContext context) : base(basic, context) { }
 
 
         public IActionResult Index()
@@ -27,7 +27,9 @@ namespace Core_MVC_Example.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+            return View();
         }
     }
 }

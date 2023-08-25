@@ -4,15 +4,19 @@ using System.Data;
 using OBizCommonClass;
 using Core_MVC_Example.BackEnd.ViewModel.AdminGroup;
 using Core_MVC_Example.BackEnd.ViewModel.News;
+using Microsoft.AspNetCore.Authorization;
+using Core_MVC_Example.Areas.BackEnd.Filter;
+using Core_MVC_Example.Models;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
+    
 	public class NewsController : GenericController
     {
 
 		private readonly IWebHostEnvironment _hostingEnvironment;
 
-		public NewsController(Basic basic, IWebHostEnvironment hostingEnvironment) : base(basic) { _hostingEnvironment = hostingEnvironment; }
+		public NewsController(Basic basic, IWebHostEnvironment hostingEnvironment, CoreMvcExampleContext context) : base(basic, context) { _hostingEnvironment = hostingEnvironment; }
 
 
         public ActionResult Index()

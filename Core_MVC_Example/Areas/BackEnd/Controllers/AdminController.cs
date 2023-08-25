@@ -4,43 +4,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 using OBizCommonClass;
 using Core_MVC_Example.BackEnd.ViewModel.Admin;
+using Core_MVC_Example.Areas.BackEnd.Interface;
+using Core_MVC_Example.Areas.BackEnd.Repository;
+using System.Collections.Generic;
+using Core_MVC_Example.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
 	public class AdminController : GenericController
     {
+        private IAdminRepository<Admin> _adminRepository;
+        CoreMvcExampleContext _context;
 
-        public AdminController(Basic basic) : base(basic) { }
+		public AdminController(Basic basic, CoreMvcExampleContext context) : base(basic, context) 
+        {
+			_context = context;
+			_adminRepository = new AdminRepository<Admin>(_context);
+        }
 
 
         public ActionResult Index()
         {
-            string strSQL = @$"SELECT a.AdminNum, g.GroupName, a.AdminAcc, a.AdminName, a.AdminPublish
-                            FROM Admin a
-                            LEFT JOIN AdminGroup g ON a.GroupNum = g.GroupNum";
-
-
-            _basic.db_Connection();
-            DataTable dt = _basic.getDataTable(strSQL);
-            _basic.db_Close();
-
-
-            List<AdminIndexViewModel> indexViewModels = new List<AdminIndexViewModel>();
-            foreach(DataRow item in dt.Rows)
-            {
-                AdminIndexViewModel indexViewModel = new AdminIndexViewModel()
-                {
-                    AdminNum = Convert.ToInt64(item.ItemArray[0]),
-					GroupName = item.ItemArray[1].ToString(),
-                    AdminAcc = item.ItemArray[2].ToString(),
-                    AdminName = item.ItemArray[3].ToString(),
-                    AdminPublish = Convert.ToInt32(item.ItemArray[4]),
-                };
-                indexViewModels.Add(indexViewModel);
-            }
-
-
-            return View(indexViewModels);
+            List<AdminIndexViewModel> indexViewModels = _adminRepository.GetList();
+			
+			return View(indexViewModels);
         }
 
 

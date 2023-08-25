@@ -1,10 +1,12 @@
+using Core_MVC_Example.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor>();
 
 builder.Services.AddSession(options =>
 {
@@ -37,6 +39,9 @@ builder.Services.Configure<RazorViewEngineOptions>(options => {
     options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
 });
 // Route Mapping END
+
+
+builder.Services.AddDbContext<CoreMvcExampleContext>();
 
 
 var app = builder.Build();

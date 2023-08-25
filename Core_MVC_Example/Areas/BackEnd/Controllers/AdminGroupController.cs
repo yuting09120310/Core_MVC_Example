@@ -5,13 +5,14 @@ using System.Data;
 using OBizCommonClass;
 using Core_MVC_Example.BackEnd.ViewModel.Admin;
 using Core_MVC_Example.BackEnd.ViewModel.AdminGroup;
+using Core_MVC_Example.Models;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
 	public class AdminGroupController : GenericController
     {
 
-        public AdminGroupController(Basic basic) : base(basic) { }
+        public AdminGroupController(Basic basic, CoreMvcExampleContext context) : base(basic, context) { }
 
 
         public ActionResult Index()
