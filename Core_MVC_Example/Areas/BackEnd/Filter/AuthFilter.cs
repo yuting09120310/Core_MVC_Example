@@ -15,7 +15,6 @@ namespace Core_MVC_Example.Areas.BackEnd.Filter
 			_basic = basic;
 		}
 
-
 		public void OnAuthorization(AuthorizationFilterContext context)
 		{
 
@@ -26,7 +25,6 @@ namespace Core_MVC_Example.Areas.BackEnd.Filter
 			// 判斷使用者是否登入            
 			if (string.IsNullOrEmpty(GroupNum) || string.IsNullOrEmpty(AdminName) || string.IsNullOrEmpty(AdminNum))
 			{
-				//context.Result = new RedirectToActionResult("Index", "Login", null);
 				context.Result = new ContentResult()
 				{
 					Content = "<script>alert('尚未登入');window.location.href='/Backend/Login/Index'</script>",
