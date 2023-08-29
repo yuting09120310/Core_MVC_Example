@@ -1,3 +1,4 @@
+using Core_MVC_Example.Areas.BackEnd.Interface;
 using Core_MVC_Example.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 
@@ -6,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<IHttpContextAccessor>();
 
 builder.Services.AddSession(options =>
 {

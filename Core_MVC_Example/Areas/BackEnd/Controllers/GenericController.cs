@@ -15,7 +15,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
         public Basic _basic;
 
 
-        public GenericController(Basic basic, CoreMvcExampleContext context)
+        public GenericController(Basic basic)
         {
             _basic = basic;
         }

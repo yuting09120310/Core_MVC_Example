@@ -9,7 +9,7 @@ namespace Core_MVC_Example.Controllers
     public class HomeController : GenericController
     {
 
-        public HomeController(Basic basic, CoreMvcExampleContext context) : base(basic, context) { }
+        public HomeController(Basic basic) : base(basic) { }
 
 
         public IActionResult Index()

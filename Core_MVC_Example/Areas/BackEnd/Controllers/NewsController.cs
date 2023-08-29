@@ -16,7 +16,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
 		private readonly IWebHostEnvironment _hostingEnvironment;
 
-		public NewsController(Basic basic, IWebHostEnvironment hostingEnvironment, CoreMvcExampleContext context) : base(basic, context) { _hostingEnvironment = hostingEnvironment; }
+		public NewsController(Basic basic, IWebHostEnvironment hostingEnvironment) : base(basic) { _hostingEnvironment = hostingEnvironment; }
 
 
         public ActionResult Index()
