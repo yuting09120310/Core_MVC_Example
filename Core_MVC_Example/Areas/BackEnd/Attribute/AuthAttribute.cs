@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 
-namespace Core_MVC_Example.Areas.BackEnd.Filter
+namespace Core_MVC_Example.Areas.BackEnd.Attribute
 {
 	public class AuthAttribute : TypeFilterAttribute
 	{

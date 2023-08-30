@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using OBizCommonClass;
 using System.Data;
 
-namespace Core_MVC_Example.Areas.BackEnd.Filter
+namespace Core_MVC_Example.Areas.BackEnd.Attribute
 {
 	public class AuthFilter : IAuthorizationFilter
 	{

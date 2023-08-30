@@ -1,5 +1,4 @@
-﻿using Core_MVC_Example.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OBizCommonClass;
 using System.Data;
 

@@ -5,8 +5,7 @@ using OBizCommonClass;
 using Core_MVC_Example.BackEnd.ViewModel.AdminGroup;
 using Core_MVC_Example.BackEnd.ViewModel.News;
 using Microsoft.AspNetCore.Authorization;
-using Core_MVC_Example.Areas.BackEnd.Filter;
-using Core_MVC_Example.Models;
+using Core_MVC_Example.Areas.BackEnd.Attribute;
 using Core_MVC_Example.Areas.BackEnd.Interface;
 using Core_MVC_Example.Areas.BackEnd.Repository;
 
@@ -45,15 +44,23 @@ namespace Core_MVC_Example.BackEnd.Controllers
         [HttpPost]
         public ActionResult Create(NewsCreateViewModel createViewModel)
         {
-			var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
+            if (ModelState.IsValid)
+            {
+				var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
 
-			_newsRepository.SaveFile(createViewModel.NewsImg, direPath);
+				_newsRepository.SaveFile(createViewModel.NewsImg, direPath);
 
-			createViewModel.Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
+				createViewModel.Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
 
-			_newsRepository.Create(createViewModel);
+				_newsRepository.Create(createViewModel);
 
-            return RedirectToAction(nameof(Index));
+				return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+				GetGroup();
+				return View(createViewModel);
+            }
         }
 
 
@@ -65,7 +72,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
             string strSQL = $"SELECT TOP 1 NewsNum, NewsClass, NewsTitle, NewsImg1, NewsDescription, NewsContxt, NewsSort, NewsPutTime, NewsOffTime, NewsPublish, Editor, EditTime FROM News Where NewsNum = {id}";
             DataTable dt = _basic.getDataTable(strSQL);
-
 
 
 			// 從資料庫中獲取檔案路徑
@@ -102,41 +108,25 @@ namespace Core_MVC_Example.BackEnd.Controllers
         [HttpPost]
         public ActionResult Edit(NewsEditViewModel editViewModel)
 		{
-			var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
-			if (!Directory.Exists(direPath))
-			{
-				Directory.CreateDirectory(direPath);
-			}
+            if(ModelState.IsValid)
+            {
+				var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
+				if (editViewModel.NewsImg != null)
+				{
+					_newsRepository.SaveFile(editViewModel.NewsImg, direPath);
+				}
 
-			var filePath = Path.Combine(direPath, editViewModel.NewsImg.FileName);
-			using (var fileStream = new FileStream(filePath, FileMode.Create))
-			{
-				editViewModel.NewsImg.CopyTo(fileStream);
-			}
+				editViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
 
+				_newsRepository.Edit(editViewModel);
 
-			editViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
-
-			string strSQL = "UPDATE News " +
-				$"SET NewsClass = '{editViewModel.NewsClassNum}', " +
-				$"NewsTitle = '{editViewModel.NewsTitle}', " +
-				$"NewsDescription = '{editViewModel.NewsDescription}', " +
-				$"NewsContxt = '{editViewModel.NewsContent}', " +
-				$"NewsImg1 = '{editViewModel.NewsImg.FileName}', " +
-				$"NewsPublish = '{editViewModel.NewsPublish}', " +
-				$"NewsPutTime = '{Convert.ToDateTime(editViewModel.NewsPutTime).ToString("yyyy-MM-dd HH:mm:ss")}', " +
-				$"NewsOffTime = '{Convert.ToDateTime(editViewModel.NewsOffTime).ToString("yyyy-MM-dd HH:mm:ss")}', " +
-				$"EditTime = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', " +
-				$"Editor = '{editViewModel.Editor}' " +
-				$"WHERE NewsNum = {editViewModel.NewsNum}";
-
-			_basic.db_Connection();
-
-			_basic.sqlExecute(strSQL);
-
-			_basic.db_Close();
-
-			return RedirectToAction(nameof(Index));
+				return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(editViewModel);
+            }
+			
 		}
 
 

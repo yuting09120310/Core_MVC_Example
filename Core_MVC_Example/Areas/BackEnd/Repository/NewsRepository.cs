@@ -73,7 +73,29 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public void Edit(NewsEditViewModel editViewModel)
 		{
+			string strSQL = "UPDATE News ";
+			strSQL += $"SET NewsClass = '{editViewModel.NewsClassNum}', ";
+			strSQL += $"NewsTitle = '{editViewModel.NewsTitle}', ";
+			strSQL += $"NewsDescription = '{editViewModel.NewsDescription}', ";
+			strSQL += $"NewsContxt = '{editViewModel.NewsContent}', ";
+
+			if (editViewModel.NewsImg != null)
+			{
+				strSQL += $"NewsImg1 = '{editViewModel.NewsImg.FileName}', ";
+			}
 			
+			strSQL += $"NewsPublish = '{editViewModel.NewsPublish}', ";
+			strSQL += $"NewsPutTime = '{Convert.ToDateTime(editViewModel.NewsPutTime).ToString("yyyy-MM-dd HH:mm:ss")}', ";
+			strSQL += $"NewsOffTime = '{Convert.ToDateTime(editViewModel.NewsOffTime).ToString("yyyy-MM-dd HH:mm:ss")}', ";
+			strSQL += $"EditTime = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', ";
+			strSQL += $"Editor = '{editViewModel.Editor}' ";
+			strSQL += $"WHERE NewsNum = {editViewModel.NewsNum}";
+
+			_basic.db_Connection();
+
+			_basic.sqlExecute(strSQL);
+
+			_basic.db_Close();
 		}
 
 
@@ -118,22 +140,5 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 				file.CopyTo(fileStream);
 			}
 		}
-
-		//public List<AdminIndexViewModel> GetList()
-		//{
-		//	List<AdminIndexViewModel> query = (from admin in _context.Admins
-		//											  join adGroup in _context.AdminGroups on admin.GroupNum equals adGroup.GroupNum
-		//											  select new AdminIndexViewModel()
-		//											  {
-		//												  AdminNum = admin.AdminNum,
-		//												  GroupName = adGroup.GroupName,
-		//												  AdminAcc = admin.AdminAcc,
-		//												  AdminName = admin.AdminName,
-		//												  AdminPublish = admin.AdminPublish,
-		//											  }).ToList();
-
-
-		//	return query;
-		//}
 	}
 }

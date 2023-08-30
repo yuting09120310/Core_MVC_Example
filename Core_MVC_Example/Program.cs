@@ -1,5 +1,4 @@
 using Core_MVC_Example.Areas.BackEnd.Interface;
-using Core_MVC_Example.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,10 +38,6 @@ builder.Services.Configure<RazorViewEngineOptions>(options => {
     options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
 });
 // Route Mapping END
-
-
-builder.Services.AddDbContext<CoreMvcExampleContext>();
-
 
 var app = builder.Build();
 

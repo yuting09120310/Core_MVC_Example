@@ -25,6 +25,5 @@ namespace Core_MVC_Example.Areas.BackEnd.Interface
 		List<SelectListItem> GetGroup();
 
 		void SaveFile(IFormFile file, string savePath);
-		//List<AdminIndexViewModel> GetList();
 	}
 }

@@ -69,7 +69,7 @@
 
 				<div class="col-md-12">
 					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsContent)</label>
-					<p><textarea name="NewsContent"></textarea></p>
+					<p><textarea asp-for="NewsContent" class="form-control"></textarea></p>
 					<span asp-validation-for="NewsContent" class="text-danger"></span>
 				</div>
 
