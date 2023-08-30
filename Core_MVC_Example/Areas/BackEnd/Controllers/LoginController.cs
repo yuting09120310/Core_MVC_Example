@@ -17,11 +17,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         // 登入頁面
         public IActionResult Index() {
-
-            var msg = this.HttpContext.Items["message"] != null ? this.HttpContext.Items["message"].ToString() : "";
-
-			ViewBag.ErrorMessage = msg;
-            
             return View();
         }
 
@@ -35,6 +30,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
             _basic.db_Connection();
             DataTable dt =  _basic.getDataTable($"SELECT TOP 1 * FROM Admin WHERE AdminAcc = '{accountNumber}' AND AdminPwd = '{_basic.md5(accountPassword)}'");
             _basic.db_Close();
+
 
             if(dt.Rows.Count > 0)
             {

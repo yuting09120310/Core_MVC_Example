@@ -7,47 +7,30 @@ using Core_MVC_Example.BackEnd.ViewModel.News;
 using Microsoft.AspNetCore.Authorization;
 using Core_MVC_Example.Areas.BackEnd.Filter;
 using Core_MVC_Example.Models;
+using Core_MVC_Example.Areas.BackEnd.Interface;
+using Core_MVC_Example.Areas.BackEnd.Repository;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
     
 	public class NewsController : GenericController
     {
+		private INewsRepository _newsRepository;
 
 		private readonly IWebHostEnvironment _hostingEnvironment;
 
-		public NewsController(Basic basic, IWebHostEnvironment hostingEnvironment) : base(basic) { _hostingEnvironment = hostingEnvironment; }
+		public NewsController(Basic basic, IWebHostEnvironment hostingEnvironment) : base(basic) 
+		{ 
+			_hostingEnvironment = hostingEnvironment;
+			_newsRepository = new NewsRepository(basic);
+		}
 
 
         public ActionResult Index()
         {
-            string strSQL = @"SELECT NewsNum, NewsTitle, NewsPublish, n.CreateTime, n.EditTime , ns.NewsClassName
-                              FROM News as n
-                              LEFT JOIN NewsClass as ns
-                              ON n.NewsClass = ns.NewsClassNum";
+			List<NewsIndexViewModel> indexViewModels = _newsRepository.GetList();
 
-
-            _basic.db_Connection();
-            DataTable dt = _basic.getDataTable(strSQL);
-            _basic.db_Close();
-
-
-            List<NewsIndexViewModel> indexViewModels = new List<NewsIndexViewModel>();
-            foreach(DataRow item in dt.Rows)
-            {
-                NewsIndexViewModel indexViewModel = new NewsIndexViewModel()
-                {
-                    NewsNum = Convert.ToInt64(item.ItemArray[0]),
-                    NewsTitle = item.ItemArray[1].ToString(),
-                    NewsPublish = Convert.ToInt32(item.ItemArray[2]),
-                    CreateTime = Convert.ToDateTime(item.ItemArray[3]),
-                    EditTime = DateTime.TryParse(item.ItemArray[4].ToString(), out var parsedTime) ? parsedTime : (DateTime?)null,
-                    NewsClassName = item.ItemArray[5].ToString(),
-                };
-                indexViewModels.Add(indexViewModel);
-            }
-
-            return View(indexViewModels);
+			return View(indexViewModels);
         }
 
 
@@ -62,29 +45,13 @@ namespace Core_MVC_Example.BackEnd.Controllers
         [HttpPost]
         public ActionResult Create(NewsCreateViewModel createViewModel)
         {
-
 			var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
-			if (!Directory.Exists(direPath))
-			{
-				Directory.CreateDirectory(direPath);
-			}
 
-			var filePath = Path.Combine(direPath, createViewModel.NewsImg.FileName);
-			using (var fileStream = new FileStream(filePath, FileMode.Create))
-			{
-				createViewModel.NewsImg.CopyTo(fileStream);
-			}
-
+			_newsRepository.SaveFile(createViewModel.NewsImg, direPath);
 
 			createViewModel.Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
-            string strSQL = " INSERT INTO News (NewsClass, NewsTitle, NewsDescription, NewsContxt, NewsImg1, NewsPublish, NewsPutTime, NewsOffTime, CreateTime, Creator) VALUES " +
-                            $" ('{createViewModel.NewsClassNum}', '{createViewModel.NewsTitle}', '{createViewModel.NewsDescription}', '{createViewModel.NewsContent}', '{createViewModel.NewsImg.FileName}', '{createViewModel.NewsPublish}', '{Convert.ToDateTime(createViewModel.NewsPutTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{Convert.ToDateTime(createViewModel.NewsOffTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{createViewModel.Creator}')";
 
-			_basic.db_Connection();
-
-            _basic.sqlExecute(strSQL);
-
-			_basic.db_Close();
+			_newsRepository.Create(createViewModel);
 
             return RedirectToAction(nameof(Index));
         }
@@ -93,7 +60,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
         public ActionResult Edit(int id)
         {
             GetGroup();
-
 
             _basic.db_Connection();
 

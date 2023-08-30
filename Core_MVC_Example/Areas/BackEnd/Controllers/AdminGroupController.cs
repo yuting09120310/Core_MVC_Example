@@ -28,26 +28,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Create()
         {
-			_basic.db_Connection();
-
-			string sqlMenuGroup = "SELECT MenuGroupId, MenuGroupName, MenuGroupIcon FROM MenuGroup";
-			string sqlMenuSub = "SELECT MenuSubNum,MenuGroupId, MenuSubId, MenuSubName FROM MenuSub";
-
-			AdminGroupCreateViewModel createViewModel = new AdminGroupCreateViewModel()
-			{
-				CreatorName = HttpContext.Session.GetString("AdminName")!,
-				Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
-				GroupName = "",
-				GroupInfo = "",
-				GroupPublish = 1,
-
-				MenuGroupModels = _basic.getDataTable(sqlMenuGroup),
-				MenuSubModels = _basic.getDataTable(sqlMenuSub),
-				AdminRoleModels = new DataTable(),
-			};
-
-
-			_basic.db_Close();
+			AdminGroupCreateViewModel createViewModel = _adminGroupRepository.Create();
 
 			return View(createViewModel);
         }
@@ -56,7 +37,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
         [HttpPost]
         public ActionResult Create(IFormCollection Collection)
         {
-            _adminGroupRepository.Create(Collection);
+            _adminGroupRepository.Create(Collection , HttpContext.Session.GetString("AdminNum"));
 
             return RedirectToAction(nameof(Index));
         }

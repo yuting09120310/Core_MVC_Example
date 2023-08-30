@@ -47,16 +47,34 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public AdminGroupCreateViewModel Create()
 		{
-			AdminGroupCreateViewModel createViewModel = new AdminGroupCreateViewModel();
+			_basic.db_Connection();
+
+			string sqlMenuGroup = "SELECT MenuGroupId, MenuGroupName, MenuGroupIcon FROM MenuGroup";
+			string sqlMenuSub = "SELECT MenuSubNum,MenuGroupId, MenuSubId, MenuSubName FROM MenuSub";
+
+			AdminGroupCreateViewModel createViewModel = new AdminGroupCreateViewModel()
+			{
+				GroupName = "",
+				GroupInfo = "",
+				GroupPublish = 1,
+
+				MenuGroupModels = _basic.getDataTable(sqlMenuGroup),
+				MenuSubModels = _basic.getDataTable(sqlMenuSub),
+				AdminRoleModels = new DataTable(),
+			};
+
+
+			_basic.db_Close();
+
 			return createViewModel;
 		}
 
 
-		public void Create(IFormCollection Collection)
+		public void Create(IFormCollection Collection, string AdminNun)
 		{
 			_basic.db_Connection();
 
-			string strSQL = $"INSERT INTO AdminGroup (GroupName, GroupInfo, GroupPublish, CreateTime, Creator) VALUES ('{Collection["GroupName"].ToString()}', '{Collection["GroupInfo"].ToString()}', '1', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '1') ; SELECT SCOPE_IDENTITY();";
+			string strSQL = $"INSERT INTO AdminGroup (GroupName, GroupInfo, GroupPublish, CreateTime, Creator) VALUES ('{Collection["GroupName"].ToString()}', '{Collection["GroupInfo"].ToString()}', '1', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', {AdminNun}) ; SELECT SCOPE_IDENTITY();";
 			DataTable dt = _basic.getDataTable(strSQL);
 
 			int groupNum = Convert.ToInt32(dt.Rows[0][0].ToString());

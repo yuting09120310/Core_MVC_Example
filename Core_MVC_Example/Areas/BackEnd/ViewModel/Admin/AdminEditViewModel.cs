@@ -28,6 +28,8 @@ namespace Core_MVC_Example.BackEnd.ViewModel.Admin
 		[Display(Name = "狀態")]
 		public int AdminPublish { get; set; }
 
+
+		public int Editor { get; set; }
 	}
 
 }

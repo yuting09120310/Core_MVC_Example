@@ -40,6 +40,8 @@ namespace Core_MVC_Example.BackEnd.Controllers
         {
             if (ModelState.IsValid)
             {
+                createViewModel.Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
+
 				_adminRepository.Create(createViewModel);
 
 				return RedirectToAction(nameof(Index));
@@ -53,7 +55,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Edit(int id)
         {
-            ViewBag.aViewBag.adminGroup = _adminRepository.GetGroup();
+            ViewBag.adminGroup = _adminRepository.GetGroup();
 
 			AdminEditViewModel editViewModel = _adminRepository.Edit(id);
 
@@ -67,7 +69,8 @@ namespace Core_MVC_Example.BackEnd.Controllers
         {
             try
             {
-                _adminRepository.Edit(editViewModel);
+				editViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
+				_adminRepository.Edit(editViewModel);
                 return RedirectToAction(nameof(Index));
             }
             catch

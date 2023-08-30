@@ -11,7 +11,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Interface
 
 
 		AdminGroupCreateViewModel Create();
-		void Create(IFormCollection Collection);
+		void Create(IFormCollection Collection, string AdminNum);
 
 
 		AdminGroupEditViewModel Edit(int id);

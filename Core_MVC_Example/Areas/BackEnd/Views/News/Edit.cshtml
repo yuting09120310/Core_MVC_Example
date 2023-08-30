@@ -54,7 +54,10 @@
 
 				<div class="col-md-12">
 					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsImg)</label>
-					<input asp-for="NewsImg" class="form-control" type="file" />
+					<label style="display:block;">
+						<img id="imgPreview" src="/uploads/News/@Model.NewsImg.FileName" style="width:300px" />
+						<input asp-for="NewsImg" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
+					</label>
 					<span asp-validation-for="NewsImg" class="text-danger"></span>
 				</div>
 
@@ -118,5 +121,20 @@
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
+
+	<script>
+		var imgPreview = document.querySelector('#imgPreview');
+
+		var file = document.querySelector('#imgPreview');
+
+
+		function showPreview(event) {
+			if (event.target.files.length > 0) {
+				var src = URL.createObjectURL(event.target.files[0]);
+				imgPreview.src = src;
+				imgPreview.style.display = "block";
+			}
+		}
+	</script>
 }
 

@@ -67,7 +67,6 @@ namespace Core_MVC_Example.Areas.BackEnd.Filter
 					return;
 				}
 			}
-			
 		}
 	}
 }

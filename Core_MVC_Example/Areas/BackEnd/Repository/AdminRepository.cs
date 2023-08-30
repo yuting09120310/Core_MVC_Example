@@ -49,9 +49,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public void Create(AdminCreateViewModel createViewModel)
 		{
-			string strSQL = @$"INSERT INTO Admin ( GroupNum, AdminAcc, AdminName, AdminPwd, AdminPublish) 
+			string strSQL = @$"INSERT INTO Admin ( GroupNum, AdminAcc, AdminName, AdminPwd, AdminPublish, Creator) 
                                     VALUES ('{createViewModel.GroupNum}' , '{createViewModel.AdminAcc}' ,'{createViewModel.AdminName}' , 
-                                    '{createViewModel.AdminPwd}' , '{createViewModel.AdminPublish}' )";
+                                    '{createViewModel.AdminPwd}' , '{createViewModel.AdminPublish}', '{createViewModel.Creator}' )";
 
 			_basic.db_Connection();
 			_basic.sqlExecute(strSQL);
@@ -82,7 +82,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		public void Edit(AdminEditViewModel editViewModel)
 		{
 			string strSQL = @$"UPDATE Admin
-                                SET AdminAcc = '{editViewModel.AdminAcc}', AdminName = '{editViewModel.AdminName}', AdminPwd = '{editViewModel.AdminPwd}'
+                                SET AdminAcc = '{editViewModel.AdminAcc}', AdminName = '{editViewModel.AdminName}', AdminPwd = '{editViewModel.AdminPwd}' , Editor = '{editViewModel.Editor}'
                                 WHERE AdminNum = '{editViewModel.AdminNum}'";
 
 			_basic.db_Connection();
