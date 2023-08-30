@@ -35,9 +35,9 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Create()
         {
-            GetGroup();
+			ViewBag.adminGroup = _newsRepository.GetGroup();
 
-            return View();
+			return View();
         }
 
 
@@ -58,7 +58,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
             }
             else
             {
-				GetGroup();
+				ViewBag.adminGroup = _newsRepository.GetGroup();
 				return View(createViewModel);
             }
         }
@@ -66,42 +66,13 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Edit(int id)
         {
-            GetGroup();
+			ViewBag.adminGroup = _newsRepository.GetGroup();
 
-            _basic.db_Connection();
+			string path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
 
-            string strSQL = $"SELECT TOP 1 NewsNum, NewsClass, NewsTitle, NewsImg1, NewsDescription, NewsContxt, NewsSort, NewsPutTime, NewsOffTime, NewsPublish, Editor, EditTime FROM News Where NewsNum = {id}";
-            DataTable dt = _basic.getDataTable(strSQL);
+            NewsEditViewModel editViewModel = _newsRepository.Edit(id, path);
 
-
-			// 從資料庫中獲取檔案路徑
-			string filePathFromDatabase = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News", dt.Rows[0]["NewsImg1"].ToString());
-
-			// 讀取檔案數據
-			byte[] fileData = System.IO.File.ReadAllBytes(filePathFromDatabase);
-
-			// 創建 FormFile 物件
-			IFormFile formFile = new FormFile(new MemoryStream(fileData), 0, fileData.Length, "NewsImg", Path.GetFileName(filePathFromDatabase));
-
-
-			NewsEditViewModel editViewModel = new NewsEditViewModel()
-            {
-                NewsNum = Convert.ToInt64(dt.Rows[0]["NewsNum"].ToString()),
-                NewsClassNum = Convert.ToInt32(dt.Rows[0]["NewsClass"].ToString()),
-                NewsTitle = dt.Rows[0]["NewsTitle"].ToString(),
-                NewsImg = formFile,
-                NewsDescription = dt.Rows[0]["NewsDescription"].ToString(),
-				NewsContent = dt.Rows[0]["NewsContxt"].ToString(),
-				Sort = int.TryParse(dt.Rows[0]["NewsSort"].ToString(), out var parseNum) ? parseNum : 0,
-				NewsPutTime = DateTime.TryParse(dt.Rows[0]["NewsPutTime"].ToString(), out DateTime result) ? result : DateTime.Now,
-				NewsOffTime = DateTime.TryParse(dt.Rows[0]["NewsOffTime"].ToString(), out DateTime results) ? results : DateTime.Now,
-                NewsPublish = Convert.ToInt32(dt.Rows[0]["NewsPublish"].ToString())
-			};
-
-
-            _basic.db_Close();
-
-            return View(editViewModel);
+			return View(editViewModel);
         }
 
 
@@ -146,20 +117,6 @@ namespace Core_MVC_Example.BackEnd.Controllers
         }
 
 
-        public void GetGroup()
-        {
-            string strSQL = "SELECT NewsClassNum,NewsClassName FROM NewsClass WHERE NewsClassPublish = 1";
-            _basic.db_Connection();
-            DataTable dt = _basic.getDataTable(strSQL);
-            _basic.db_Close();
-
-            List<SelectListItem> adminGroup = new List<SelectListItem>();
-            foreach (DataRow item in dt.Rows)
-            {
-                adminGroup.Add(new SelectListItem { Text = item.ItemArray[1].ToString(), Value = item.ItemArray[0].ToString() });
-            }
-
-            ViewBag.adminGroup = adminGroup;
-        }
+        
     }
 }

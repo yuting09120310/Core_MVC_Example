@@ -13,7 +13,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Interface
 		void Create(NewsCreateViewModel createViewModel);
 
 
-		NewsEditViewModel Edit(int id);
+		NewsEditViewModel Edit(int id, string path);
 
 
 		void Edit(NewsEditViewModel editViewModel);
