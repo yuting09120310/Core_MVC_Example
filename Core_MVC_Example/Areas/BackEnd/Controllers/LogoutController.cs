@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OBizCommonClass;
-using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
 
-    public class LogoutController : GenericController {
+	public class LogoutController : GenericController {
 
 		public LogoutController(Basic basic) : base(basic) { }
 

@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data;
-using OBizCommonClass;
-using Core_MVC_Example.BackEnd.ViewModel.AdminGroup;
-using Core_MVC_Example.BackEnd.ViewModel.News;
-using Microsoft.AspNetCore.Authorization;
-using Core_MVC_Example.Areas.BackEnd.Attribute;
-using Core_MVC_Example.Areas.BackEnd.Interface;
+﻿using Core_MVC_Example.Areas.BackEnd.Interface;
 using Core_MVC_Example.Areas.BackEnd.Repository;
+using Core_MVC_Example.BackEnd.ViewModel.News;
+using Microsoft.AspNetCore.Mvc;
+using OBizCommonClass;
+using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
-    
+
 	public class NewsController : GenericController
     {
 		private INewsRepository _newsRepository;

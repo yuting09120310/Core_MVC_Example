@@ -1,5 +1,4 @@
 ﻿using Core_MVC_Example.Areas.BackEnd.Interface;
-using Core_MVC_Example.BackEnd.ViewModel.Admin;
 using Core_MVC_Example.BackEnd.ViewModel.News;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OBizCommonClass;

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
-    [Area("BackEnd")]
+	[Area("BackEnd")]
     public class LoginController : Controller 
     {
 

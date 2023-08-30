@@ -1,7 +1,5 @@
-﻿using Core_MVC_Example.BackEnd.ViewModel.Admin;
-using Core_MVC_Example.BackEnd.ViewModel.News;
+﻿using Core_MVC_Example.BackEnd.ViewModel.News;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Runtime.InteropServices;
 
 namespace Core_MVC_Example.Areas.BackEnd.Interface
 {

@@ -1,11 +1,10 @@
 ﻿using Core_MVC_Example.BackEnd.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using OBizCommonClass;
-using System.Diagnostics;
 
 namespace Core_MVC_Example.Controllers
 {
-    public class HomeController : GenericController
+	public class HomeController : GenericController
     {
 
         public HomeController(Basic basic) : base(basic) { }
