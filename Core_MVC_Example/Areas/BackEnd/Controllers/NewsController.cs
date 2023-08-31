@@ -7,7 +7,6 @@ using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {
-
 	public class NewsController : GenericController
     {
 		private INewsRepository _newsRepository;
@@ -99,15 +98,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Delete(int id)
         {
-            _basic.db_Connection();
-
-            string strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
-            _basic.sqlExecute(strSQL);
-
-            strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
-            _basic.sqlExecute(strSQL);
-
-            _basic.db_Close();
+            _newsRepository.Delete(id);
 
             return Json("刪除完成");
         }

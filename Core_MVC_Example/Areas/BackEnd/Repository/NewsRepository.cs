@@ -130,7 +130,15 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public void Delete(int id)
 		{
-			
+			_basic.db_Connection();
+
+			string strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
+			_basic.sqlExecute(strSQL);
+
+			strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
+			_basic.sqlExecute(strSQL);
+
+			_basic.db_Close();
 		}
 
 

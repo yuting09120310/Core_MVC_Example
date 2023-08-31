@@ -21,7 +21,6 @@ namespace Core_MVC_Example.Areas.BackEnd.Attribute
 			string AdminName = context.HttpContext.Session.GetString("AdminName");
 			string AdminNum = context.HttpContext.Session.GetString("AdminNum");
 
-			// 判斷使用者是否登入            
 			if (string.IsNullOrEmpty(GroupNum) || string.IsNullOrEmpty(AdminName) || string.IsNullOrEmpty(AdminNum))
 			{
 				context.Result = new ContentResult()

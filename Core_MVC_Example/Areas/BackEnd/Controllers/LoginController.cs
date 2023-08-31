@@ -15,15 +15,12 @@ namespace Core_MVC_Example.BackEnd.Controllers
             _basic = basic;
         }
 
-        // 登入頁面
+
         public IActionResult Index() {
             return View();
         }
 
 
-        // 登入按鈕 - Post
-        // accountNumber  ；使用者帳號
-        // accountPassword：使用者密碼
         [HttpPost]
         public IActionResult Index(string accountNumber, string accountPassword) 
         {
@@ -46,8 +43,5 @@ namespace Core_MVC_Example.BackEnd.Controllers
                 return View();
             }
         }
-
-
-
     }
 }

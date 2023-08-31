@@ -6,9 +6,10 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
 	public class LogoutController : GenericController {
 
+
 		public LogoutController(Basic basic) : base(basic) { }
 
-		// 登入頁面
+
 		public IActionResult Index() {
 
             HttpContext.Session.Remove("AdminNum");
