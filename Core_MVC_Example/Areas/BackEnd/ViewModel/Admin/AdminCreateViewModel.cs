@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Data;
 
 namespace Core_MVC_Example.BackEnd.ViewModel.Admin
 {
-    public class AdminCreateViewModel
+	public class AdminCreateViewModel
     {
 
 		[Required(ErrorMessage = "請選擇群組")]

@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Data;
 
 namespace Core_MVC_Example.BackEnd.ViewModel.Admin
 {
-    public class AdminEditViewModel
+	public class AdminEditViewModel
 	{
 		[Display(Name = "帳號編號")]
 		public long? AdminNum { get; set; }

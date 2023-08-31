@@ -1,5 +1,4 @@
-﻿using Core_MVC_Example.Areas.BackEnd.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using OBizCommonClass;
 using System.Data;
