@@ -19,9 +19,8 @@ namespace Core_MVC_Example.BackEnd.ViewModel.News
 		public string NewsTitle { get; set; }
 
 
-		[Required(ErrorMessage = "請上傳圖片")]
 		[Display(Name = "圖片")]
-		public IFormFile NewsImg { get; set; }
+		public IFormFile? NewsImg { get; set; }
 
 
 		[Required(ErrorMessage = "請輸入描述")]

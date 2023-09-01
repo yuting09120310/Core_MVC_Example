@@ -56,6 +56,7 @@
 						<img id="imgPreview" src="/BackEnd/uploadimg.png" style="height:300px" />
 						<input asp-for="NewsImg" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
 					</label>
+					<label onclick="remove(event)">刪除圖片</label>
 					<span asp-validation-for="NewsImg" class="text-danger"></span>
 				</div>
 
@@ -132,6 +133,14 @@
 				imgPreview.src = src;
 				imgPreview.style.display = "block";
 			}
+		}
+
+
+		function remove(event) {
+			imgPreview.src = "/BackEnd/uploadimg.png";
+
+			var fileInput = document.getElementById("NewsImg");
+			fileInput.value = null; // Clear the selected file
 		}
 	</script>
 }

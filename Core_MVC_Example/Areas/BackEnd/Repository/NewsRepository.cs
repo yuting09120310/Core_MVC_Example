@@ -62,7 +62,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		}
 
 
-		public NewsEditViewModel Edit(int id, string path)
+		public NewsEditViewModel Edit(long id, string path)
 		{
 			_basic.db_Connection();
 
@@ -176,6 +176,25 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			using (var fileStream = new FileStream(filePath, FileMode.Create))
 			{
 				file.CopyTo(fileStream);
+			}
+		}
+
+		public void DelFile(long id, string path)
+		{
+			string strSQL = $"SELECT NewsImg1 From News WHERE NewsNum = '{id}'";
+			_basic.db_Connection();
+			DataTable dt =  _basic.getDataTable(strSQL);
+			_basic.db_Close();
+
+			if(dt.Rows.Count > 0)
+			{
+				string fileName = dt.Rows[0][0].ToString();
+				string filePath = Path.Combine(path, fileName);
+				
+				if (File.Exists(filePath))
+				{
+					System.IO.File.Delete(filePath);
+				}
 			}
 		}
 	}

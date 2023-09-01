@@ -79,6 +79,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 				var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
 				if (editViewModel.NewsImg != null)
 				{
+                    _newsRepository.DelFile(editViewModel.NewsNum, direPath);
 					_newsRepository.SaveFile(editViewModel.NewsImg, direPath);
 				}
 

@@ -11,7 +11,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Interface
 		void Create(NewsCreateViewModel createViewModel);
 
 
-		NewsEditViewModel Edit(int id, string path);
+		NewsEditViewModel Edit(long id, string path);
 
 
 		void Edit(NewsEditViewModel editViewModel);
@@ -23,5 +23,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Interface
 		List<SelectListItem> GetGroup();
 
 		void SaveFile(IFormFile file, string savePath);
+
+		void DelFile(long id, string path);
 	}
 }
