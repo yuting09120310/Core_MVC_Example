@@ -55,4 +55,8 @@ app.MapControllerRoute(
     name: "Areas",
     pattern: "{area:exists}/{controller}/{action=Index}/{id?}/");
 
+app.MapControllerRoute(
+    name: "API",
+    pattern: "{controller}/{action=Index}/{id?}/");
+
 app.Run();
