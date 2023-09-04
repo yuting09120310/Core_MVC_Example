@@ -44,7 +44,6 @@ namespace Core_MVC_Example.API.Controllers
         [HttpGet]
         public ActionResult Update(string tableName, string fields, string values, int id)
         {
-
             try
             {
                 string tableNum = tableName + "Num";
