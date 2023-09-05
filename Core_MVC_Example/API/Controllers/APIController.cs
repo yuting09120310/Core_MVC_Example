@@ -2,7 +2,9 @@
 using Core_MVC_Example.Areas.BackEnd.Repository;
 using Core_MVC_Example.BackEnd.ViewModel.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OBizCommonClass;
+using System.Data;
 
 namespace Core_MVC_Example.API.Controllers
 {
@@ -15,6 +17,54 @@ namespace Core_MVC_Example.API.Controllers
 		public APIController(Basic basic) 
         {
             _basic = basic;
+        }
+
+
+        //搜尋全部(資料表名稱)
+        [HttpPost]
+        [HttpGet]
+        public ActionResult SelectAll(string tableName)
+        {
+            try
+            {
+                string strSQL = $"Select * FROM {tableName}";
+
+                _basic.db_Connection();
+                DataTable result = _basic.getDataTable(strSQL);
+                _basic.db_Close();
+
+                string res = JsonConvert.SerializeObject(result);
+
+                return Content(res);
+            }
+            catch (Exception ex)
+            {
+                return Content("false");
+            }
+        }
+
+
+        //搜尋(資料表名稱, 欄位名稱, 值)
+        [HttpPost]
+        [HttpGet]
+        public ActionResult Select(string tableName, string fields, string values)
+        {
+            try
+            {
+                string strSQL = $"Select * FROM {tableName} WHERE {fields} = '{values}'";
+
+                _basic.db_Connection();
+                DataTable result = _basic.getDataTable(strSQL);
+                _basic.db_Close();
+
+                string res = JsonConvert.SerializeObject(result);
+
+                return Content(res);
+            }
+            catch (Exception ex)
+            {
+                return Content("false");
+            }
         }
 
 
