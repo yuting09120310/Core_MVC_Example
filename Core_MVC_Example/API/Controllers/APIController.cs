@@ -51,7 +51,7 @@ namespace Core_MVC_Example.API.Controllers
         {
             try
             {
-                string strSQL = $"Select * FROM {tableName} WHERE {fields} = '{values}'";
+                string strSQL = $"SELECT * FROM {tableName} WHERE {fields} = '{values}'";
 
                 _basic.db_Connection();
                 DataTable result = _basic.getDataTable(strSQL);

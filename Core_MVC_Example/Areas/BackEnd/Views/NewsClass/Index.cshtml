@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Core_MVC_Example.BackEnd.ViewModel.News.NewsIndexViewModel>;
+﻿@model IEnumerable<Core_MVC_Example.BackEnd.ViewModel.NewsClass.NewsClassIndexViewModel>;
 @{
     ViewData["Title"] = "最新消息列表";
 }
@@ -17,7 +17,7 @@
                         <span class="link-fx">消息管理</span>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
-                        消息設定
+                        消息類別
                     </li>
                 </ol>
             </nav>
@@ -32,10 +32,10 @@
     <div class="block block-rounded">
         <div class="block-header block-header-default">
 
-            <h3 class="block-title">消息設定列表</h3>
+            <h3 class="block-title">消息類別列表</h3>
 
             <div class="nav navbar-right panel_toolbox">
-                <a type="button" asp-action="Create" asp-controller="News" class="btn btn-minw btn-primary"><i class="fa fa-plus"></i>新增</a>
+                <a type="button" asp-action="Create" asp-controller="NewsClass" class="btn btn-minw btn-primary"><i class="fa fa-plus"></i>新增</a>
             </div>
 
         </div>
@@ -43,11 +43,10 @@
             <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                 <thead>
                     <tr>
+                        <th>@Html.DisplayNameFor(model => model.NewsClassNum)</th>
                         <th>@Html.DisplayNameFor(model => model.NewsClassName)</th>
-                        <th>@Html.DisplayNameFor(model => model.NewsTitle)</th>
-                        <th>@Html.DisplayNameFor(model => model.NewsPublish)</th>
+                        <th>@Html.DisplayNameFor(model => model.NewsClassPublish)</th>
                         <th class="d-none d-sm-table-cell">@Html.DisplayNameFor(model => model.CreateTime)</th>
-                        <th class="d-none d-sm-table-cell">@Html.DisplayNameFor(model => model.EditTime)</th>
                         <th>處理</th>
                     </tr>
                 </thead>
@@ -57,17 +56,17 @@
                     {
                         <tr>
                             <td class="fs-sm">
-                                @Html.DisplayFor(modelItem => item.NewsClassName)
+                                @Html.DisplayFor(modelItem => item.NewsClassNum)
                             </td>
 
                             <td class="fs-sm">
-                                @Html.DisplayFor(modelItem => item.NewsTitle)
+                                @Html.DisplayFor(modelItem => item.NewsClassName)
                             </td>
 
                             <td class="d-none d-sm-table-cell">
                                 <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-info-light text-info">
                                     @{
-                                        if (@item.NewsPublish == 1)
+                                        if (@item.NewsClassPublish == 1)
                                         {
                                             <span>啟用</span>
                                         }
@@ -83,13 +82,9 @@
                                 @Html.DisplayFor(modelItem => item.CreateTime)
                             </td>
 
-                            <td class="d-none d-sm-table-cell fs-sm">
-                                @Html.DisplayFor(modelItem => item.EditTime)
-                            </td>
-
                             <td>
-                                @Html.ActionLink("編輯", "Edit", new { id=item.NewsNum}) |
-                                <a href="#" onclick="Delete(@item.NewsNum)">刪除</a>
+                                @Html.ActionLink("編輯", "Edit", new { id=item.NewsClassNum}) |
+                                <a href="#" onclick="Delete(@item.NewsClassNum)">刪除</a>
                             </td>
                         </tr>
                     }

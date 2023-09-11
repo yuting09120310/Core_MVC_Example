@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <script type="text/javascript" src="~/API/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/API/js/jquery-ui.min.js"></script>
+    <title>WEB API TEST</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+    <table border="0">
+        <tr>
+            <td>API URL</td>
+            <td><input type="text" id="txtUrl" name="txtUrl" size="50"></td>
+        </tr>
+        <tr>
+            <td>API Method</td>
+            <td>
+                <select id="cmbMethod" name="cmbMethod">
+                    <option value="GET" selected>GET</option>
+                    <option value="POST">POST</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>API Args</td>
+            <td><textarea id="txtArgs" name="txtArgs" rows="9" cols="50"></textarea></td>
+        </tr>
+        <tr>
+            <td>API Result</td>
+            <td><textarea id="txtResult" name="txtResult" rows="5" cols="50"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" id="btnSend" name="btnSend" value="SEND" onclick="javascript:APItest();"></td>
+        </tr>
+    </table>
+
+
+    <script>
+        function APItest() {
+            let apiURL = $('#txtUrl').val();
+            let apiMethod = $('#cmbMethod').val();
+            let apiArgs = $('#txtArgs').val();
+
+            if (apiURL.length == 0) { return; }
+            $('#txtResult').val('');
+
+            $.ajax({
+                url: apiURL,
+                data: JSON.stringify(apiArgs),
+                type: apiMethod,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                success: function (result) {
+                    $('#txtResult').val(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('API 發送錯誤：' + xhr.status);
+                }
+            });
+
+        }
+    </script>
+
+</body>
+</html>

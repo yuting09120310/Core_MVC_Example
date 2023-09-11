@@ -102,7 +102,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		public void Edit(long id, IFormCollection Collection)
 		{
 			Dictionary<string, string> roleDicts = Collection
-				 .Where(kv => kv.Key.StartsWith("Role"))
+				 .Where(kv => kv.Key.StartsWith("e"))
 				 .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value!))
 				 .ToDictionary(kv => kv.Key, kv => kv.Value);
 
