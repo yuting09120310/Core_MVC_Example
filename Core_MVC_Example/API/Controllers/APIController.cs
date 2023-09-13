@@ -20,6 +20,12 @@ namespace Core_MVC_Example.API.Controllers
         }
 
 
+        public ActionResult api_test()
+        {
+            return View();
+        }
+
+
         //搜尋全部(資料表名稱)
         [HttpPost]
         [HttpGet]
@@ -27,7 +33,7 @@ namespace Core_MVC_Example.API.Controllers
         {
             try
             {
-                string strSQL = $"Select * FROM {tableName}";
+                string strSQL = $"SELECT * FROM {tableName}";
 
                 _basic.db_Connection();
                 DataTable result = _basic.getDataTable(strSQL);

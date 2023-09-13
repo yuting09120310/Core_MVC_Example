@@ -15,10 +15,6 @@
 <body bgcolor="#FFFFFF">
     <table border="0">
         <tr>
-            <td>API URL</td>
-            <td><input type="text" id="txtUrl" name="txtUrl" size="50"></td>
-        </tr>
-        <tr>
             <td>API Method</td>
             <td>
                 <select id="cmbMethod" name="cmbMethod">
@@ -28,37 +24,88 @@
             </td>
         </tr>
         <tr>
-            <td>API Args</td>
-            <td><textarea id="txtArgs" name="txtArgs" rows="9" cols="50"></textarea></td>
+            <td>API Action</td>
+            <td>
+                <select id="cmbAction" name="cmbAction" onchange="showFields(this.value)">
+                    <option value="SelectAll">Select All</option>
+                    <option value="Select">Select</option>
+                    <option value="Insert">Insert</option>
+                    <option value="Update">Update</option>
+                    <option value="Delete">Delete</option>
+                </select>
+            </td>
         </tr>
-        <tr>
-            <td>API Result</td>
-            <td><textarea id="txtResult" name="txtResult" rows="5" cols="50"></textarea></td>
+        <tr id="trTableName" >
+            <td>Table Name</td>
+            <td><input type="text" id="txtTableName" name="txtTableName"></td>
+        </tr>
+        <tr id="trFields" style="display:none;">
+            <td>Fields</td>
+            <td><input type="text" id="txtFields" name="txtFields"></td>
+        </tr>
+        <tr id="trValues" style="display:none;">
+            <td>Values</td>
+            <td><input type="text" id="txtValues" name="txtValues"></td>
+        </tr>
+        <tr id="trId" style="display:none;">
+            <td>ID</td>
+            <td><input type="text" id="txtId" name="txtId"></td>
         </tr>
         <tr>
             <td colspan="2">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="2"><input type="button" id="btnSend" name="btnSend" value="SEND" onclick="javascript:APItest();"></td>
+            <td colspan="2"><input type="button" id="btnSend" name="btnSend" value="SEND" onclick="APItest();"></td>
         </tr>
     </table>
 
+    <br />
+
+    <textarea type="text" id="txtResult" name="txtResult" rows="10" style="width:60%;"></textarea>
 
     <script>
-        function APItest() {
-            let apiURL = $('#txtUrl').val();
-            let apiMethod = $('#cmbMethod').val();
-            let apiArgs = $('#txtArgs').val();
+        function showFields(action) {
+            $("#trFields, #trValues, #trId").hide();
 
-            if (apiURL.length == 0) { return; }
+            if (action === "SelectAll") {
+                $("#trTableName").show();
+            } else if (action === "Select") {
+                $("#trTableName, #trFields, #trValues").show();
+            } else if (action === "Insert") {
+                $("#trTableName, #trFields, #trValues").show();
+            } else if (action === "Update") {
+                $("#trTableName, #trFields, #trValues, #trId").show();
+            } else if (action === "Delete") {
+                $("#trTableName, #trId").show();
+            }
+        }
+
+        function APItest() {
+            let apiURL = $('#cmbAction').val();
+            let apiMethod = $('#cmbMethod').val();
+            let apiAction = $('#cmbAction').val();
+            let apiArgs = {};
+
+            if (apiAction === "SelectAll" || apiAction === "Delete") {
+                apiArgs.TableName = $('#txtTableName').val();
+                apiArgs.id = $('#txtId').val();
+            } else if (apiAction === "Select" || apiAction === "Insert") {
+                apiArgs.tableName = $('#txtTableName').val();
+                apiArgs.fields = $('#txtFields').val();
+                apiArgs.values = $('#txtValues').val();
+            } else if (apiAction === "Update") {
+                apiArgs.tableName = $('#txtTableName').val();
+                apiArgs.fields = $('#txtFields').val();
+                apiArgs.values = $('#txtValues').val();
+                apiArgs.id = $('#txtId').val();
+            }
+
             $('#txtResult').val('');
 
             $.ajax({
                 url: apiURL,
-                data: JSON.stringify(apiArgs),
+                data: apiArgs,
                 type: apiMethod,
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
                 success: function (result) {
                     $('#txtResult').val(result);
                 },
@@ -66,9 +113,7 @@
                     alert('API 發送錯誤：' + xhr.status);
                 }
             });
-
         }
     </script>
-
 </body>
 </html>

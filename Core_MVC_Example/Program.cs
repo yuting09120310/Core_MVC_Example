@@ -32,6 +32,8 @@ builder.Services.Configure<RazorViewEngineOptions>(options => {
 
     options.ViewLocationFormats.Add("/FrontEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+
+    options.ViewLocationFormats.Add("/API/Views/{0}" + RazorViewEngine.ViewExtension);
 });
 
 var app = builder.Build();
