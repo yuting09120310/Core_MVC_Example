@@ -20,12 +20,6 @@ namespace Core_MVC_Example.API.Controllers
         }
 
 
-        public ActionResult api_test()
-        {
-            return View();
-        }
-
-
         //搜尋全部(資料表名稱)
         [HttpPost]
         [HttpGet]

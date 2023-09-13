@@ -49,7 +49,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public void Create(AdminCreateViewModel createViewModel)
 		{
-			string strSQL = @$"INSERT INTO Admin ( GroupNum, AdminAcc, AdminName, AdminPwd, AdminPublish, Creator) 
+			string strSQL = @$"INSERT INTO Admin ( GroupNum, AdminAcc, AdminName, AdminPwd, AdminPublish,    Creator) 
                                     VALUES ('{createViewModel.GroupNum}' , '{createViewModel.AdminAcc}' ,'{createViewModel.AdminName}' , 
                                     '{createViewModel.AdminPwd}' , '{createViewModel.AdminPublish}', '{createViewModel.Creator}' )";
 
