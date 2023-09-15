@@ -1,14 +1,11 @@
-﻿using Core_MVC_Example.Areas.BackEnd.Interface;
-using Core_MVC_Example.Areas.BackEnd.Repository;
-using Core_MVC_Example.BackEnd.ViewModel.Admin;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OBizCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.API.Controllers
 {
-	public class APIController : Controller
+    public class APIController : Controller
     {
 
         private Basic _basic;
