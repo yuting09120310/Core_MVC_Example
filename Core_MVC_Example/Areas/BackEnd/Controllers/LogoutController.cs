@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OBizCommonClass;
+using NETCommonClass;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {

@@ -2,7 +2,7 @@
 using Core_MVC_Example.Areas.BackEnd.Repository;
 using Core_MVC_Example.BackEnd.ViewModel.Admin;
 using Microsoft.AspNetCore.Mvc;
-using OBizCommonClass;
+using NETCommonClass;
 
 namespace Core_MVC_Example.BackEnd.Controllers
 {

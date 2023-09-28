@@ -2,7 +2,7 @@
 using Core_MVC_Example.Areas.BackEnd.Repository;
 using Core_MVC_Example.BackEnd.ViewModel.AdminGroup;
 using Microsoft.AspNetCore.Mvc;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
@@ -45,7 +45,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public ActionResult Edit(int id)
         {
-            _basic.db_Connection();
+            _basic.DB_Connection();
 
             string sqlMenuGroup = "SELECT MenuGroupId, MenuGroupName, MenuGroupIcon FROM MenuGroup";
             string sqlMenuSub = "SELECT MenuSubNum,MenuGroupId, MenuSubId, MenuSubName FROM MenuSub";
@@ -53,7 +53,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
 
             string sqlGroup = $"SELECT GroupName, GroupInfo FROM AdminGroup WHERE GroupNum = {id}";
-            DataTable dtGroup = _basic.getDataTable(sqlGroup);
+            DataTable dtGroup = _basic.GetDataTable(sqlGroup);
 
             AdminGroupCreateViewModel createViewModel = new AdminGroupCreateViewModel()
             {
@@ -63,13 +63,13 @@ namespace Core_MVC_Example.BackEnd.Controllers
                 GroupInfo = dtGroup.Rows[0]["GroupInfo"].ToString(),
                 GroupPublish = 1,
 
-                MenuGroupModels = _basic.getDataTable(sqlMenuGroup),
-                MenuSubModels = _basic.getDataTable(sqlMenuSub),
-                AdminRoleModels = _basic.getDataTable(sqlRole),
+                MenuGroupModels = _basic.GetDataTable(sqlMenuGroup),
+                MenuSubModels = _basic.GetDataTable(sqlMenuSub),
+                AdminRoleModels = _basic.GetDataTable(sqlRole),
             };
 
 
-            _basic.db_Close();
+            _basic.DB_Close();
 
             return View(createViewModel);
         }

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Razor;
-using OBizCommonClass;
+using NETCommonClass;
 
 var builder = WebApplication.CreateBuilder(args);
 

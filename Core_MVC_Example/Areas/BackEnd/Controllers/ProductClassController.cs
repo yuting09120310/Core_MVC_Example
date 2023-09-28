@@ -4,7 +4,7 @@ using Core_MVC_Example.BackEnd.ViewModel.News;
 using Core_MVC_Example.BackEnd.ViewModel.NewsClass;
 using Core_MVC_Example.BackEnd.ViewModel.ProductClass;
 using Microsoft.AspNetCore.Mvc;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers

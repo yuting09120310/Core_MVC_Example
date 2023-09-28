@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Attribute
@@ -44,14 +44,14 @@ namespace Core_MVC_Example.Areas.BackEnd.Attribute
 				dic.Add("Delete", "D");
 
 				string sqlMenuNum = $"SELECT MenuSubNum FROM MenuSub WHERE MenuSubUrl Like '/BackEnd/{controllerName}/%'";
-				_basic.db_Connection();
-				DataTable dtMenuNum = _basic.getDataTable(sqlMenuNum);
+				_basic.DB_Connection();
+				DataTable dtMenuNum = _basic.GetDataTable(sqlMenuNum);
 				string menuNum = dtMenuNum.Rows[0][0].ToString();
 
 				string sqlRole = $"SELECT * FROM AdminRole WHERE GroupNum = {GroupNum} AND MenuSubNum = {menuNum} AND Role LIKE '%{dic[actionName].ToString()}%'";
-				DataTable dtRole = _basic.getDataTable(sqlRole);
+				DataTable dtRole = _basic.GetDataTable(sqlRole);
 
-				_basic.db_Close();
+				_basic.DB_Close();
 
 
 				if(dtRole.Rows.Count == 0)

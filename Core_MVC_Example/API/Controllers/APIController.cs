@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.API.Controllers
@@ -26,9 +26,9 @@ namespace Core_MVC_Example.API.Controllers
             {
                 string strSQL = $"SELECT * FROM {tableName}";
 
-                _basic.db_Connection();
-                DataTable result = _basic.getDataTable(strSQL);
-                _basic.db_Close();
+                _basic.DB_Connection();
+                DataTable result = _basic.GetDataTable(strSQL);
+                _basic.DB_Close();
 
                 string res = JsonConvert.SerializeObject(result);
 
@@ -50,9 +50,9 @@ namespace Core_MVC_Example.API.Controllers
             {
                 string strSQL = $"SELECT * FROM {tableName} WHERE {fields} = '{values}'";
 
-                _basic.db_Connection();
-                DataTable result = _basic.getDataTable(strSQL);
-                _basic.db_Close();
+                _basic.DB_Connection();
+                DataTable result = _basic.GetDataTable(strSQL);
+                _basic.DB_Close();
 
                 string res = JsonConvert.SerializeObject(result);
 
@@ -74,9 +74,9 @@ namespace Core_MVC_Example.API.Controllers
             {
                 string strSQL = $"INSERT INTO {tableName} ({fields})  VALUES ('{values}')";
 
-                _basic.db_Connection();
-                bool result = _basic.sqlExecute(strSQL);
-                _basic.db_Close();
+                _basic.DB_Connection();
+                bool result = _basic.SqlExecute(strSQL);
+                _basic.DB_Close();
 
                 return Content(result.ToString());
             }
@@ -96,9 +96,9 @@ namespace Core_MVC_Example.API.Controllers
                 string tableNum = tableName + "Num";
                 string strSQL = $"UPDATE {tableName} SET {fields}='{values}' WHERE {tableNum} = {id}";
 
-                _basic.db_Connection();
-                bool result = _basic.sqlExecute(strSQL);
-                _basic.db_Close();
+                _basic.DB_Connection();
+                bool result = _basic.SqlExecute(strSQL);
+                _basic.DB_Close();
 
                 return Content(result.ToString());
             }
@@ -120,9 +120,9 @@ namespace Core_MVC_Example.API.Controllers
                 string tableNum = tableName + "Num";
                 string strSQL = $"DELETE {tableName} WHERE {tableNum} = {id}";
 
-                _basic.db_Connection();
-                bool result = _basic.sqlExecute(strSQL);
-                _basic.db_Close();
+                _basic.DB_Connection();
+                bool result = _basic.SqlExecute(strSQL);
+                _basic.DB_Close();
 
                 return Content(result.ToString());
             }

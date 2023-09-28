@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
@@ -24,9 +24,9 @@ namespace Core_MVC_Example.BackEnd.Controllers
         [HttpPost]
         public IActionResult Index(string accountNumber, string accountPassword) 
         {
-            _basic.db_Connection();
-            DataTable dt =  _basic.getDataTable($"SELECT TOP 1 * FROM Admin WHERE AdminAcc = '{accountNumber}' AND AdminPwd = '{_basic.md5(accountPassword)}'");
-            _basic.db_Close();
+            _basic.DB_Connection();
+            DataTable dt =  _basic.GetDataTable($"SELECT TOP 1 * FROM Admin WHERE AdminAcc = '{accountNumber}' AND AdminPwd = '{_basic.MD5(accountPassword)}'");
+            _basic.DB_Close();
 
 
             if(dt.Rows.Count > 0)
