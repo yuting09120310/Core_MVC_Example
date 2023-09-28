@@ -1,4 +1,4 @@
-﻿@model Core_MVC_Example.BackEnd.ViewModel.News.NewsEditViewModel
+﻿@model Core_MVC_Example.BackEnd.ViewModel.Product.ProductEditViewModel
 
 @{
 	ViewData["Title"] = "編輯最新消息";
@@ -35,45 +35,45 @@
 			<h3 class="block-title">消息編輯</h3>
 		</div>
 		<div class="block-content block-content-full">
-			<form class="row g-3 needs-validation" novalidate="" asp-action="Edit" asp-controller="News" enctype="multipart/form-data">
+			<form class="row g-3 needs-validation" novalidate="" asp-action="Edit" asp-controller="Product" enctype="multipart/form-data">
 
-				<input type="hidden" asp-for="NewsNum"/>
+				<input type="hidden" asp-for="ProductNum"/>
 
 				<div class="col-md-12">
-					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsClassNum)</label>
-					@Html.DropDownListFor(model => model.NewsClassNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.ProductClassNum)</label>
+					@Html.DropDownListFor(model => model.ProductClassNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsTitle)</label>
-					<input asp-for="NewsTitle" class="form-control" type="text" />
-					<span asp-validation-for="NewsTitle" class="text-danger"></span>
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.ProductTitle)</label>
+					<input asp-for="ProductTitle" class="form-control" type="text" />
+					<span asp-validation-for="ProductTitle" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.NewsImg)</label>
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.ProductImg)</label>
 					<label style="display:block;">
-						<img id="imgPreview" src="/uploads/News/@Model.NewsImg.FileName" style="width:300px" />
-						<input asp-for="NewsImg" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
+						<img id="imgPreview" src="/uploads/Product/@Model.ProductImg.FileName" style="width:300px" />
+						<input asp-for="ProductImg" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
 					</label>
 					<label onclick="remove(event)">刪除圖片</label>
-					<span asp-validation-for="NewsImg" class="text-danger"></span>
+					<span asp-validation-for="ProductImg" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsDescription)</label>
-					<input asp-for="NewsDescription" class="form-control" type="text" />
-					<span asp-validation-for="NewsDescription" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.ProductDescription)</label>
+					<input asp-for="ProductDescription" class="form-control" type="text" />
+					<span asp-validation-for="ProductDescription" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsContent)</label>
-					<p><textarea asp-for="NewsContent" class="form-control"></textarea></p>
-					<span asp-validation-for="NewsContent" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.ProductContent)</label>
+					<p><textarea asp-for="ProductContent" class="form-control"></textarea></p>
+					<span asp-validation-for="ProductContent" class="text-danger"></span>
 				</div>
 
 
@@ -85,26 +85,26 @@
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsPutTime)</label>
-					<input asp-for="NewsPutTime" class="form-control" type="date" />
-					<span asp-validation-for="NewsPutTime" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.ProductPutTime)</label>
+					<input asp-for="ProductPutTime" class="form-control" type="date" />
+					<span asp-validation-for="ProductPutTime" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsOffTime)</label>
-					<input asp-for="NewsOffTime" class="form-control" type="date" />
-					<span asp-validation-for="NewsOffTime" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.ProductOffTime)</label>
+					<input asp-for="ProductOffTime" class="form-control" type="date" />
+					<span asp-validation-for="ProductOffTime" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.NewsPublish)</label>
-					<select class="form-select" id="IsEnabled" required="" asp-for="NewsPublish">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.ProductPublish)</label>
+					<select class="form-select" id="IsEnabled" required="" asp-for="ProductPublish">
 						<option value="0">不啟用</option>
 						<option value="1">啟用</option>
 					</select>
-					<span asp-validation-for="NewsPublish" class="text-danger"></span>
+					<span asp-validation-for="ProductPublish" class="text-danger"></span>
 				</div>
 
 
@@ -141,7 +141,7 @@
 		function remove(event) {
 			imgPreview.src = "/BackEnd/uploadimg.png";
 
-			var fileInput = document.getElementById("NewsImg");
+			var fileInput = document.getElementById("ProductImg");
 			fileInput.value = null; // Clear the selected file
 		}
 	</script>

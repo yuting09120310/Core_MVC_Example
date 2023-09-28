@@ -44,7 +44,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
         {
             if (ModelState.IsValid)
             {
-				var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "Prodcut");
+				var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "Product");
 
                 _productRepository.SaveFile(createViewModel.ProductImg1, direPath);
 
@@ -66,7 +66,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
         {
 			ViewBag.adminGroup = _productRepository.GetGroup();
 
-			string path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
+			string path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "Product");
 
 			ProductEditViewModel editViewModel = _productRepository.Edit(id, path);
 

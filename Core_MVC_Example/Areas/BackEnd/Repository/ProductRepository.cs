@@ -1,5 +1,5 @@
 ﻿using Core_MVC_Example.Areas.BackEnd.Interface;
-using Core_MVC_Example.BackEnd.ViewModel.News;
+using Core_MVC_Example.BackEnd.ViewModel.Product;
 using Core_MVC_Example.BackEnd.ViewModel.Product;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OBizCommonClass;
@@ -59,7 +59,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
         public void Create(ProductCreateViewModel createViewModel)
 		{
-			string strSQL = " INSERT INTO Procut (ProcutClass, ProductTitle, ProductDescription, ProductContent, ProductImg1, ProductPublish, ProductPutTime, ProductOffTime, CreateTime, Creator) VALUES " +
+			string strSQL = " INSERT INTO Product (ProductClass, ProductTitle, ProductDescription, ProductContxt, ProductImg1, ProductPublish, ProductPutTime, ProductOffTime, CreateTime, Creator) VALUES " +
 							$" ('{createViewModel.ProductClassNum}', '{createViewModel.ProductTitle}', '{createViewModel.ProductDescription}', '{createViewModel.ProductContent}', '{createViewModel.ProductImg1.FileName}', '{createViewModel.ProductPublish}', '{Convert.ToDateTime(createViewModel.ProductPutTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{Convert.ToDateTime(createViewModel.ProductOffTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{createViewModel.Creator}')";
 
 			_basic.db_Connection();
@@ -140,10 +140,10 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		{
 			_basic.db_Connection();
 
-			string strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
+			string strSQL = $"DELETE FROM Product WHERE ProductNum = {id}";
 			_basic.sqlExecute(strSQL);
 
-			strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
+			strSQL = $"DELETE FROM Product WHERE ProductNum = {id}";
 			_basic.sqlExecute(strSQL);
 
 			_basic.db_Close();
@@ -189,7 +189,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public void DelFile(long id, string path)
 		{
-			string strSQL = $"SELECT NewsImg1 From News WHERE NewsNum = '{id}'";
+			string strSQL = $"SELECT ProductImg1 From Product WHERE ProductNum = '{id}'";
 			_basic.db_Connection();
 			DataTable dt =  _basic.getDataTable(strSQL);
 			_basic.db_Close();
