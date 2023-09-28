@@ -64,14 +64,13 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		{
 			_basic.DB_Connection();
 
-			string strSQL = $"SELECT TOP 1 MemberNum, MemberTitle, MemberImg1, MemberDescription, MemberSort, MemberPutTime, MemberOffTime, MemberPublish, Editor, EditTime FROM Member Where MemberNum = {id}";
+			string strSQL = $"SELECT TOP 1 MemberNum, MemberAccount, MemberName, MemberPhone, MemberEmail, MemberPublish FROM Member Where MemberNum = {id}";
 			DataTable dt = _basic.GetDataTable(strSQL);
 			
 			MemberEditViewModel editViewModel = new MemberEditViewModel()
 			{
 				MemberNum = Convert.ToInt64(dt.Rows[0]["MemberNum"].ToString()),
-				MemberAccount = dt.Rows[0]["MemberTitle"].ToString(),
-				MemberPassword = dt.Rows[0]["MemberPassword"].ToString(),
+				MemberAccount = dt.Rows[0]["MemberAccount"].ToString(),
 				MemberName = dt.Rows[0]["MemberName"].ToString(),
 				MemberPhone = dt.Rows[0]["MemberPhone"].ToString(),
 				MemberEmail = dt.Rows[0]["MemberEmail"].ToString(),

@@ -1,4 +1,4 @@
-﻿@model Core_MVC_Example.BackEnd.ViewModel.Banner.BannerEditViewModel
+﻿@model Core_MVC_Example.BackEnd.ViewModel.Member.MemberEditViewModel
 
 @{
 	ViewData["Title"] = "編輯廣告";
@@ -35,64 +35,53 @@
 			<h3 class="block-title">廣告編輯</h3>
 		</div>
 		<div class="block-content block-content-full">
-			<form class="row g-3 needs-validation" novalidate="" asp-action="Edit" asp-controller="Banner" enctype="multipart/form-data">
+			<form class="row g-3 needs-validation" novalidate="" asp-action="Edit" asp-controller="Member" enctype="multipart/form-data">
 
-				<input type="hidden" asp-for="BannerNum"/>
+				<input type="hidden" asp-for="MemberNum"/>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.BannerTitle)</label>
-					<input asp-for="BannerTitle" class="form-control" type="text" />
-					<span asp-validation-for="BannerTitle" class="text-danger"></span>
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.MemberAccount)</label>
+					<input asp-for="MemberAccount" class="form-control" type="text" />
+					<span asp-validation-for="MemberAccount" class="text-danger"></span>
+				</div>
+
+				<div class="col-md-12">
+					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.MemberPassword)</label>
+					<input asp-for="MemberPassword" class="form-control" type="password" />
+					<span asp-validation-for="MemberPassword" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom01" class="form-label">@Html.DisplayNameFor(model => model.BannerImg)</label>
-					<label style="display:block;">
-						<img id="imgPreview" src="/uploads/Banner/@Model.BannerImg.FileName" style="width:300px" />
-						<input asp-for="BannerImg" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
-					</label>
-					<label onclick="remove(event)">刪除圖片</label>
-					<span asp-validation-for="BannerImg" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.MemberName)</label>
+					<input asp-for="MemberName" class="form-control" type="text" />
+					<span asp-validation-for="MemberName" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.BannerDescription)</label>
-					<input asp-for="BannerDescription" class="form-control" type="text" />
-					<span asp-validation-for="BannerDescription" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.MemberPhone)</label>
+					<input asp-for="MemberPhone" class="form-control" type="text" />
+					<span asp-validation-for="MemberPhone" class="text-danger"></span>
 				</div>
 
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.Sort)</label>
-					<input asp-for="Sort" class="form-control" type="number" />
-					<span asp-validation-for="Sort" class="text-danger"></span>
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.MemberEmail)</label>
+					<input asp-for="MemberEmail" class="form-control" type="text" />
+					<span asp-validation-for="MemberEmail" class="text-danger"></span>
 				</div>
 
 
-				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.BannerPutTime)</label>
-					<input asp-for="BannerPutTime" class="form-control" type="date" />
-					<span asp-validation-for="BannerPutTime" class="text-danger"></span>
-				</div>
-
 
 				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.BannerOffTime)</label>
-					<input asp-for="BannerOffTime" class="form-control" type="date" />
-					<span asp-validation-for="BannerOffTime" class="text-danger"></span>
-				</div>
-
-
-				<div class="col-md-12">
-					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.BannerPublish)</label>
-					<select class="form-select" id="IsEnabled" required="" asp-for="BannerPublish">
+					<label for="validationCustom02" class="form-label">@Html.DisplayNameFor(model => model.MemberPublish)</label>
+					<select class="form-select" id="IsEnabled" required="" asp-for="MemberPublish">
 						<option value="0">不啟用</option>
 						<option value="1">啟用</option>
 					</select>
-					<span asp-validation-for="BannerPublish" class="text-danger"></span>
+					<span asp-validation-for="MemberPublish" class="text-danger"></span>
 				</div>
 
 
@@ -129,7 +118,7 @@
 		function remove(event) {
 			imgPreview.src = "/BackEnd/uploadimg.png";
 
-			var fileInput = document.getElementById("BannerImg");
+			var fileInput = document.getElementById("MemberImg");
 			fileInput.value = null; // Clear the selected file
 		}
 	</script>
