@@ -3,7 +3,7 @@ using Core_MVC_Example.BackEnd.ViewModel.News;
 using Core_MVC_Example.BackEnd.ViewModel.NewsClass;
 using Core_MVC_Example.BackEnd.ViewModel.ProductClass;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Repository
@@ -25,9 +25,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
                               FROM ProductClass";
 
 
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 
 			List<ProductClassIndexViewModel> indexViewModels = new List<ProductClassIndexViewModel>();
@@ -61,20 +61,20 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 							$" ('{createViewModel.ProductClassName}','{createViewModel.ProductClassPublish}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{AdminNum}')";
 
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public ProductClassEditViewModel Edit(long id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"SELECT TOP 1 ProductClassNum, ProductClassName, ProductClassPublish FROM ProductClass Where ProductClassNum = {id}";
-			DataTable dt = _basic.getDataTable(strSQL);
+			DataTable dt = _basic.GetDataTable(strSQL);
 
             ProductClassEditViewModel editViewModel = new ProductClassEditViewModel()
 			{
@@ -83,7 +83,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 				ProductClassPublish = Convert.ToInt32(dt.Rows[0]["ProductClassPublish"].ToString())
 			};
 
-			_basic.db_Close();
+			_basic.DB_Close();
 
 			return editViewModel;
 		}
@@ -98,22 +98,22 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			strSQL += $"Editor = '{AdminNum}' ";
 			strSQL += $"WHERE ProductClassNum = {editViewModel.ProductClassNum}";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public void Delete(int id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"DELETE FROM ProductClass WHERE ProductClassNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 	}
 }

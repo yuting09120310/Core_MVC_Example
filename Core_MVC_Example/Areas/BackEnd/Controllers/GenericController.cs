@@ -1,7 +1,7 @@
 ﻿using Core_MVC_Example.Areas.BackEnd.Attribute;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.BackEnd.Controllers
@@ -28,7 +28,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
 
         public void GetMenu()
         {
-            _basic.db_Connection();
+            _basic.DB_Connection();
 
             int GroupNum = Convert.ToInt16(HttpContext.Session.GetString("GroupNum"));
 
@@ -37,7 +37,7 @@ namespace Core_MVC_Example.BackEnd.Controllers
                               WHERE MenuGroupPublish = 1
                               ORDER BY MenuGroupNum ASC";
 
-            DataTable moduleDt = _basic.getDataTable(module);
+            DataTable moduleDt = _basic.GetDataTable(module);
             ViewBag.module = moduleDt;
 
 
@@ -47,10 +47,10 @@ namespace Core_MVC_Example.BackEnd.Controllers
                                  WHERE c.MenuSubPublish = 1 AND s.GroupNum = {GroupNum}
                                  ";
 
-            DataTable moduleFunDt = _basic.getDataTable(moduleFun);
+            DataTable moduleFunDt = _basic.GetDataTable(moduleFun);
             ViewBag.moduleFun = moduleFunDt;
 
-            _basic.db_Close();
+            _basic.DB_Close();
 
 
             ViewBag.AdminName = HttpContext.Session.GetString("AdminName");

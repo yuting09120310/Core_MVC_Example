@@ -1,7 +1,7 @@
 ﻿using Core_MVC_Example.Areas.BackEnd.Interface;
 using Core_MVC_Example.BackEnd.ViewModel.News;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Repository
@@ -25,9 +25,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
                               ON n.NewsClass = ns.NewsClassNum";
 
 
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 
 			List<NewsIndexViewModel> indexViewModels = new List<NewsIndexViewModel>();
@@ -54,20 +54,20 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			string strSQL = " INSERT INTO News (NewsClass, NewsTitle, NewsDescription, NewsContxt, NewsImg1, NewsPublish, NewsPutTime, NewsOffTime, CreateTime, Creator) VALUES " +
 							$" ('{createViewModel.NewsClassNum}', '{createViewModel.NewsTitle}', '{createViewModel.NewsDescription}', '{createViewModel.NewsContent}', '{createViewModel.NewsImg.FileName}', '{createViewModel.NewsPublish}', '{Convert.ToDateTime(createViewModel.NewsPutTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{Convert.ToDateTime(createViewModel.NewsOffTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{createViewModel.Creator}')";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public NewsEditViewModel Edit(long id, string path)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"SELECT TOP 1 NewsNum, NewsClass, NewsTitle, NewsImg1, NewsDescription, NewsContxt, NewsSort, NewsPutTime, NewsOffTime, NewsPublish, Editor, EditTime FROM News Where NewsNum = {id}";
-			DataTable dt = _basic.getDataTable(strSQL);
+			DataTable dt = _basic.GetDataTable(strSQL);
 
 			// 從資料庫中獲取檔案路徑
 			string filepath = Path.Combine(path, dt.Rows[0]["NewsImg1"].ToString());
@@ -94,7 +94,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			};
 
 
-			_basic.db_Close();
+			_basic.DB_Close();
 
 			return editViewModel;
 		}
@@ -120,34 +120,34 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			strSQL += $"Editor = '{editViewModel.Editor}' ";
 			strSQL += $"WHERE NewsNum = {editViewModel.NewsNum}";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public void Delete(int id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
 			strSQL = $"DELETE FROM News WHERE NewsNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public List<SelectListItem> GetGroup()
 		{
 			string strSQL = "SELECT NewsClassNum,NewsClassName FROM NewsClass WHERE NewsClassPublish = 1";
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 			List<SelectListItem> adminGroup = new List<SelectListItem>();
 			foreach (DataRow item in dt.Rows)
@@ -182,9 +182,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		public void DelFile(long id, string path)
 		{
 			string strSQL = $"SELECT NewsImg1 From News WHERE NewsNum = '{id}'";
-			_basic.db_Connection();
-			DataTable dt =  _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt =  _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 			if(dt.Rows.Count > 0)
 			{

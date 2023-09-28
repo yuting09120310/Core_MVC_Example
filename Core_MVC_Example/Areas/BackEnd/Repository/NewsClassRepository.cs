@@ -2,7 +2,7 @@
 using Core_MVC_Example.BackEnd.ViewModel.News;
 using Core_MVC_Example.BackEnd.ViewModel.NewsClass;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Repository
@@ -24,9 +24,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
                               FROM NewsClass";
 
 
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 
 			List<NewsClassIndexViewModel> indexViewModels = new List<NewsClassIndexViewModel>();
@@ -60,20 +60,20 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			string strSQL = " INSERT INTO NewsClass (NewsClassName, NewsClassPublish, CreateTime, Creator) VALUES " +
 							$" ('{createViewModel.NewsClassName}','{createViewModel.NewsClassPublish}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{AdminNum}')";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public NewsClassEditViewModel Edit(long id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"SELECT TOP 1 NewsClassNum, NewsClassName, NewsClassPublish FROM NewsClass Where NewsClassNum = {id}";
-			DataTable dt = _basic.getDataTable(strSQL);
+			DataTable dt = _basic.GetDataTable(strSQL);
 
 			NewsClassEditViewModel editViewModel = new NewsClassEditViewModel()
 			{
@@ -82,7 +82,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 				NewsClassPublish = Convert.ToInt32(dt.Rows[0]["NewsClassPublish"].ToString())
 			};
 
-			_basic.db_Close();
+			_basic.DB_Close();
 
 			return editViewModel;
 		}
@@ -97,22 +97,22 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			strSQL += $"Editor = '{AdminNum}' ";
 			strSQL += $"WHERE NewsClassNum = {editViewModel.NewsClassNum}";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public void Delete(int id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"DELETE FROM NewsClass WHERE NewsClassNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using Core_MVC_Example.BackEnd.ViewModel.Product;
 using Core_MVC_Example.BackEnd.ViewModel.Product;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Repository
@@ -26,9 +26,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
                               ON n.ProductClass = ns.ProductClassNum";
 
 
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 
 			List<ProductIndexViewModel> indexViewModels = new List<ProductIndexViewModel>();
@@ -62,20 +62,20 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			string strSQL = " INSERT INTO Product (ProductClass, ProductTitle, ProductDescription, ProductContxt, ProductImg1, ProductPublish, ProductPutTime, ProductOffTime, CreateTime, Creator) VALUES " +
 							$" ('{createViewModel.ProductClassNum}', '{createViewModel.ProductTitle}', '{createViewModel.ProductDescription}', '{createViewModel.ProductContent}', '{createViewModel.ProductImg1.FileName}', '{createViewModel.ProductPublish}', '{Convert.ToDateTime(createViewModel.ProductPutTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{Convert.ToDateTime(createViewModel.ProductOffTime).ToString("yyyy-MM-dd HH:mm:ss")}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{createViewModel.Creator}')";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public ProductEditViewModel Edit(long id, string path)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"SELECT TOP 1 ProductNum, ProductClass, ProductTitle, ProductImg1, ProductDescription, ProductContxt, ProductSort, ProductPutTime, ProductOffTime, ProductPublish, Editor, EditTime FROM Product Where ProductNum = {id}";
-			DataTable dt = _basic.getDataTable(strSQL);
+			DataTable dt = _basic.GetDataTable(strSQL);
 
 			// 從資料庫中獲取檔案路徑
 			string filepath = Path.Combine(path, dt.Rows[0]["ProductImg1"].ToString());
@@ -102,7 +102,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			};
 
 
-			_basic.db_Close();
+			_basic.DB_Close();
 
 			return editViewModel;
 		}
@@ -128,34 +128,34 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			strSQL += $"Editor = '{editViewModel.Editor}' ";
 			strSQL += $"WHERE ProductNum = {editViewModel.ProductNum}";
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public void Delete(int id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"DELETE FROM Product WHERE ProductNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
 			strSQL = $"DELETE FROM Product WHERE ProductNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
 		public List<SelectListItem> GetGroup()
 		{
 			string strSQL = "SELECT ProductClassNum,ProductClassName FROM ProductClass WHERE ProductClassPublish = 1";
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 			List<SelectListItem> adminGroup = new List<SelectListItem>();
 			foreach (DataRow item in dt.Rows)
@@ -190,9 +190,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		public void DelFile(long id, string path)
 		{
 			string strSQL = $"SELECT ProductImg1 From Product WHERE ProductNum = '{id}'";
-			_basic.db_Connection();
-			DataTable dt =  _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt =  _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 			if(dt.Rows.Count > 0)
 			{

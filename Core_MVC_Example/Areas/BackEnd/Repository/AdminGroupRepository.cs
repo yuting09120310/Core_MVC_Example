@@ -1,6 +1,6 @@
 ﻿using Core_MVC_Example.Areas.BackEnd.Interface;
 using Core_MVC_Example.BackEnd.ViewModel.AdminGroup;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Repository
@@ -21,9 +21,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			string strSQL = "SELECT GroupNum, GroupName, GroupPublish, CreateTime FROM AdminGroup WHERE GroupPublish = 1";
 
 
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 
 			List<AdminGroupIndexViewModel> indexViewModels = new List<AdminGroupIndexViewModel>();
@@ -45,7 +45,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public AdminGroupCreateViewModel Create()
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string sqlMenuGroup = "SELECT MenuGroupId, MenuGroupName, MenuGroupIcon FROM MenuGroup";
 			string sqlMenuSub = "SELECT MenuSubNum,MenuGroupId, MenuSubId, MenuSubName FROM MenuSub";
@@ -56,13 +56,13 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 				GroupInfo = "",
 				GroupPublish = 1,
 
-				MenuGroupModels = _basic.getDataTable(sqlMenuGroup),
-				MenuSubModels = _basic.getDataTable(sqlMenuSub),
+				MenuGroupModels = _basic.GetDataTable(sqlMenuGroup),
+				MenuSubModels = _basic.GetDataTable(sqlMenuSub),
 				AdminRoleModels = new DataTable(),
 			};
 
 
-			_basic.db_Close();
+			_basic.DB_Close();
 
 			return createViewModel;
 		}
@@ -70,10 +70,10 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 		public void Create(IFormCollection Collection, string AdminNun)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"INSERT INTO AdminGroup (GroupName, GroupInfo, GroupPublish, CreateTime, Creator) VALUES ('{Collection["GroupName"].ToString()}', '{Collection["GroupInfo"].ToString()}', '1', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', {AdminNun}) ; SELECT SCOPE_IDENTITY();";
-			DataTable dt = _basic.getDataTable(strSQL);
+			DataTable dt = _basic.GetDataTable(strSQL);
 
 			int groupNum = Convert.ToInt32(dt.Rows[0][0].ToString());
 
@@ -85,10 +85,10 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			foreach (string roleDict in roleDicts.Keys)
 			{
 				strSQL = $"INSERT INTO AdminRole (GroupNum, MenuSubNum, Role, CreateTime, Creator) VALUES ('{groupNum}', '{roleDict}', '{roleDicts[roleDict].ToString()}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '1')";
-				_basic.sqlExecute(strSQL);
+				_basic.SqlExecute(strSQL);
 			}
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 
@@ -108,7 +108,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 
 			int groupNum = Convert.ToInt32(id);
 
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 
 			foreach (string roleDict in roleDicts.Keys)
@@ -116,7 +116,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 				long menuSubNum = Convert.ToInt64(roleDict);
 				string strRole = $"SELECT * FROM AdminRole WHERE GroupNum = '{groupNum}' AND MenuSubNum = '{menuSubNum}'";
 
-				DataTable dataTable = _basic.getDataTable(strRole);
+				DataTable dataTable = _basic.GetDataTable(strRole);
 
 
 				string strSQL = string.Empty;
@@ -130,22 +130,22 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 					strSQL = $"INSERT INTO AdminRole (GroupNum, MenuSubNum, Role, CreateTime, Creator) VALUES ('{groupNum}', '{menuSubNum}', '{roleDicts[roleDict].ToString()}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '1')";
 				}
 
-				_basic.sqlExecute(strSQL);
+				_basic.SqlExecute(strSQL);
 			}
 		}
 
 
 		public void Delete(int id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"DELETE FROM AdminGroup WHERE GroupNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
 			strSQL = $"DELETE FROM AdminRole WHERE GroupNum = {id}";
-			_basic.sqlExecute(strSQL);
+			_basic.SqlExecute(strSQL);
 
-			_basic.db_Close();
+			_basic.DB_Close();
 		}
 
 

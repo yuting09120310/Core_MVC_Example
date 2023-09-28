@@ -12,8 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="OBizCommonClass">
-      <HintPath>OBizCommonClass.dll</HintPath>
+    <Folder Include="wwwroot\uploads\Banner\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NETCommonClass">
+      <HintPath>NETCommonClass.dll</HintPath>
     </Reference>
   </ItemGroup>
 

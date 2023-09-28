@@ -1,7 +1,7 @@
 ﻿using Core_MVC_Example.Areas.BackEnd.Interface;
 using Core_MVC_Example.BackEnd.ViewModel.Admin;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OBizCommonClass;
+using NETCommonClass;
 using System.Data;
 
 namespace Core_MVC_Example.Areas.BackEnd.Repository
@@ -25,9 +25,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 			";
 
 
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 			List<AdminIndexViewModel> indexViewModels = new List<AdminIndexViewModel>();
 			foreach (DataRow item in dt.Rows)
@@ -53,18 +53,18 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
                                     VALUES ('{createViewModel.GroupNum}' , '{createViewModel.AdminAcc}' ,'{createViewModel.AdminName}' , 
                                     '{createViewModel.AdminPwd}' , '{createViewModel.AdminPublish}', '{createViewModel.Creator}' )";
 
-			_basic.db_Connection();
-			_basic.sqlExecute(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			_basic.SqlExecute(strSQL);
+			_basic.DB_Close();
 		}
 
 
 		public AdminEditViewModel Edit(int id)
 		{
-			_basic.db_Connection();
+			_basic.DB_Connection();
 
 			string strSQL = $"SELECT TOP 1 *  FROM Admin WHERE AdminNum = {id}";
-			DataTable dt = _basic.getDataTable(strSQL);
+			DataTable dt = _basic.GetDataTable(strSQL);
 
 			AdminEditViewModel editViewModel = new AdminEditViewModel()
 			{
@@ -73,7 +73,7 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 				AdminName = dt.Rows[0]["AdminName"].ToString(),
 			};
 
-			_basic.db_Close();
+			_basic.DB_Close();
 
 			return editViewModel;
 		}
@@ -85,9 +85,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
                                 SET AdminAcc = '{editViewModel.AdminAcc}', AdminName = '{editViewModel.AdminName}', AdminPwd = '{editViewModel.AdminPwd}' , Editor = '{editViewModel.Editor}'
                                 WHERE AdminNum = '{editViewModel.AdminNum}'";
 
-			_basic.db_Connection();
-			_basic.sqlExecute(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			_basic.SqlExecute(strSQL);
+			_basic.DB_Close();
 		}
 
 
@@ -95,18 +95,18 @@ namespace Core_MVC_Example.Areas.BackEnd.Repository
 		{
 			string strSQL = $"DELETE FROM Admin WHERE AdminNum = {id}";
 
-			_basic.db_Connection();
-			_basic.sqlExecute(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			_basic.SqlExecute(strSQL);
+			_basic.DB_Close();
 		}
 
 
 		public List<SelectListItem> GetGroup()
 		{
 			string strSQL = "SELECT GroupNum,GroupName FROM admingroup WHERE GroupPublish = 1";
-			_basic.db_Connection();
-			DataTable dt = _basic.getDataTable(strSQL);
-			_basic.db_Close();
+			_basic.DB_Connection();
+			DataTable dt = _basic.GetDataTable(strSQL);
+			_basic.DB_Close();
 
 			List<SelectListItem> adminGroup = new List<SelectListItem>();
 			foreach (DataRow item in dt.Rows)
