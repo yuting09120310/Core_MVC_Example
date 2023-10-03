@@ -17,9 +17,9 @@ namespace Core_MVC_Example.Areas.BackEnd.Attribute
 		public void OnAuthorization(AuthorizationFilterContext context)
 		{
 
-			string GroupNum = context.HttpContext.Session.GetString("GroupNum");
-			string AdminName = context.HttpContext.Session.GetString("AdminName");
-			string AdminNum = context.HttpContext.Session.GetString("AdminNum");
+			string GroupNum = context.HttpContext.Session.GetString("GroupNum")!;
+			string AdminName = context.HttpContext.Session.GetString("AdminName")!;
+			string AdminNum = context.HttpContext.Session.GetString("AdminNum")!;
 
 			if (string.IsNullOrEmpty(GroupNum) || string.IsNullOrEmpty(AdminName) || string.IsNullOrEmpty(AdminNum))
 			{
